@@ -5,6 +5,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.shadowfacts.craftingslabs.compat.modules.CompatNEI;
+import net.shadowfacts.craftingslabs.compat.modules.craftingtweaks.CompatCraftingTweaks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +24,7 @@ public class ModCompat {
 	private static Logger log = LogManager.getLogger("CraftingSlabs");
 
 	public static void registerModules() {
+		register(CompatCraftingTweaks.class);
 	}
 
 	public static void registerClientModules() {
