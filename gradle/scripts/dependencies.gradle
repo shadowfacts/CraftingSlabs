@@ -8,10 +8,6 @@ repositories {
 		name "ChickenBones"
 		url "http://chickenbones.net/maven/"
 	}
-	maven {
-		name "Blay09"
-		url "http://repo.blay09.net"
-	}
 }
 
 configurations {
@@ -20,11 +16,9 @@ configurations {
 }
 
 dependencies {
-	shade group: "net.shadowfacts", name: "ShadowMC", version: "${config.mc_version}-${config.shadowmc_version}", classifier: "deobf"
+	// shade group: "net.shadowfacts", name: "ShadowMC", version: "${config.mc_version}-${config.shadowmc_version}", classifier: "deobf"
 
 	compile group: "codechicken", name: "CodeChickenLib", version: "${config.mc_version}-${config.ccl_version}", classifier: "dev"
 	compile group: "codechicken", name: "CodeChickenCore", version: "${config.mc_version}-${config.ccc_version}", classifier: "dev"
 	compile group: "codechicken", name: "NotEnoughItems", version: "${config.mc_version}-${config.nei_version}", classifier: "dev"
-
-	compile group: "net.blay09.mods", name: "craftingtweaks", version: config.craftingtweaks_version, classifier: "dev"
 }
