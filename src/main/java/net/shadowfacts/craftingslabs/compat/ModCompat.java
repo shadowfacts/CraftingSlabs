@@ -24,7 +24,6 @@ public class ModCompat {
 	private static Logger log = LogManager.getLogger("CraftingSlabs");
 
 	public static void registerModules() {
-		register(CompatCraftingTweaks.class);
 	}
 
 	public static void registerClientModules() {
