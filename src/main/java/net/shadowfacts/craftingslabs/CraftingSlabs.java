@@ -1,16 +1,13 @@
 package net.shadowfacts.craftingslabs;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.craftingslabs.compat.ModCompat;
+import net.shadowfacts.craftingslabs.proxy.CommonProxy;
 
 /**
  * @author shadowfacts
@@ -24,28 +21,25 @@ public class CraftingSlabs {
 	@Mod.Instance(modId)
 	public static CraftingSlabs instance;
 
+	@SidedProxy(serverSide = "net.shadowfacts.craftingslabs.proxy.CommonProxy", clientSide = "net.shadowfacts.craftingslabs.proxy.ClientProxy")
+	public static CommonProxy proxy;
+
 //	Content
 	public static BlockCraftingSlab craftingSlab;
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		craftingSlab = new BlockCraftingSlab(false, Material.wood);
+		craftingSlab = new BlockCraftingSlab();
+		GameRegistry.registerBlock(craftingSlab, ItemBlockCraftingSlab.class, "craftingslab", craftingSlab, craftingSlab, false);
 
-		GameRegistry.registerBlock(craftingSlab, "crafting_slab");
-
-		GameRegistry.addShapelessRecipe(new ItemStack(craftingSlab), Blocks.crafting_table);
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.crafting_table), craftingSlab);
-
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-
-		ModCompat.registerModules();
-		if (event.getSide() == Side.CLIENT) ModCompat.registerClientModules();
+		proxy.preInit(event);
 
 		ModCompat.preInit(event);
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+		proxy.init(event);
 		ModCompat.init(event);
 	}
 
