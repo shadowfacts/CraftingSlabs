@@ -1,5 +1,7 @@
 package net.shadowfacts.craftingslabs.proxy;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -28,6 +30,7 @@ public class CommonProxy {
 	}
 
 	public void init(FMLInitializationEvent event) {
+		registerRecipes();
 		registerInventoryModels();
 	}
 
@@ -41,6 +44,14 @@ public class CommonProxy {
 
 	private void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityFurnaceSlab.class, "furnaceSlab");
+	}
+
+	private void registerRecipes() {
+		GameRegistry.addShapelessRecipe(new ItemStack(CraftingSlabs.blocks.craftingSlab), Blocks.crafting_table);
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.crafting_table), CraftingSlabs.blocks.craftingSlab);
+
+		GameRegistry.addShapelessRecipe(new ItemStack(CraftingSlabs.blocks.furnaceSlab), Blocks.furnace);
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.furnace), CraftingSlabs.blocks.furnaceSlab);
 	}
 
 }
