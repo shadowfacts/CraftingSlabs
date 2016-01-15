@@ -1,0 +1,46 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"down": "blocks/furnace_top",
+			"up": "blocks/furnace_top",
+			"north": "blocks/furnace_front_off",
+			"east": "blocks/furnace_side",
+			"south": "blocks/furnace_side",
+			"west": "blocks/furnace_side"
+		}
+	},
+	"variants": {
+		"burning": {
+			"true": {
+				"textures": {
+					"north": "blocks/furnace_front_on"
+				}
+			},
+			"false": {
+
+			}
+		},
+		"facing": {
+			"north": {
+			},
+			"south": {
+				"y": 180
+			},
+			"east": {
+				"y": 90
+			},
+			"west": {
+				"y": 270
+			}
+		},
+		"half": {
+			"bottom": {
+				"model": "craftingslabs:bottom"
+			},
+			"top": {
+				"model": "craftingslabs:top"
+			}
+		}
+	}
+}

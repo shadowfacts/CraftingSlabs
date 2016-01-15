@@ -1,5 +1,6 @@
 package net.shadowfacts.craftingslabs.container;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
@@ -8,6 +9,7 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
+import net.shadowfacts.craftingslabs.util.MiscUtils;
 
 /**
  * @author shadowfacts
@@ -65,7 +67,7 @@ public class ContainerCrafting extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return world.getBlockState(pos).getBlock() == CraftingSlabs.blocks.craftingSlab && player.getDistanceSq((double) pos.getX() + .5d, (double) pos.getY() + .5d, (double) pos.getZ() + .5d) <= 64;
+		return MiscUtils.isCraftingSlab(world, pos) && player.getDistanceSq((double) pos.getX() + .5d, (double) pos.getY() + .5d, (double) pos.getZ() + .5d) <= 64;
 	}
 
 	@Override

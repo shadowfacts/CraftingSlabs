@@ -173,7 +173,7 @@ public class TileEntityFurnaceSlab extends TileEntity implements ITickable, ISid
 		if (!worldObj.isRemote) {
 			if (isBurning() || inventory[1] != null && inventory[0] != null) {
 				if (!isBurning() && canSmelt()) {
-					currentItemBurnTime = furnaceBurnTime = getItemBurnTime(inventory[1]);
+					currentItemBurnTime = furnaceBurnTime = TileEntityFurnace.getItemBurnTime(inventory[1]);
 
 					if (isBurning()) {
 						flag1 = true;
@@ -260,7 +260,7 @@ public class TileEntityFurnaceSlab extends TileEntity implements ITickable, ISid
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return worldObj.getTileEntity(pos) == this && player.getDistanceSq((double) pos.getX() + .5d, (double) pos.getY() + .5d, (double) pos.getZ() + .5d) <= 64;
+		return player.getDistanceSq((double) pos.getX() + .5d, (double) pos.getY() + .5d, (double) pos.getZ() + .5d) <= 64;
 	}
 
 	@Override

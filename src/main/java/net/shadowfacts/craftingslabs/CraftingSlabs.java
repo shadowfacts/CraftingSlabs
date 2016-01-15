@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.shadowfacts.craftingslabs.block.ModBlocks;
 import net.shadowfacts.craftingslabs.items.ModItems;
 import net.shadowfacts.craftingslabs.proxy.CommonProxy;

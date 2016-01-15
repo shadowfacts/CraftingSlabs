@@ -6,8 +6,11 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.shadowfacts.craftingslabs.util.MiscUtils;
 
 /**
  * @author shadowfacts
@@ -15,13 +18,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ContainerFurnace extends Container {
 
 	private final IInventory furnace;
+	private World world;
+	private BlockPos pos;
 	private int cookTime;
 	private int totalCookTime;
 	private int furnaceBurnTime;
 	private int currentItemBurnTime;
 
-	public ContainerFurnace(InventoryPlayer playerInv, IInventory furnace) {
+	public ContainerFurnace(InventoryPlayer playerInv, IInventory furnace, World world, BlockPos pos) {
 		this.furnace = furnace;
+		this.world = world;
+		this.pos = pos;
 		addSlotToContainer(new Slot(furnace, 0, 56, 17));
 		addSlotToContainer(new SlotFurnaceFuel(furnace, 1, 56, 53));
 		addSlotToContainer(new SlotFurnaceOutput(playerInv.player, furnace, 2, 116, 35));
@@ -84,7 +91,7 @@ public class ContainerFurnace extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return furnace.isUseableByPlayer(player);
+		return MiscUtils.isFurnaceSlab(world, pos) && furnace.isUseableByPlayer(player);
 	}
 
 	@Override
