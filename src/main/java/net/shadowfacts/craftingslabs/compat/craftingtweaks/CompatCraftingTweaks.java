@@ -1,9 +1,9 @@
-package net.shadowfacts.craftingslabs.compat.modules.craftingtweaks;
+package net.shadowfacts.craftingslabs.compat.craftingtweaks;
 
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import net.blay09.mods.craftingtweaks.api.CraftingTweaksAPI;
-import net.shadowfacts.craftingslabs.ContainerCrafting;
-import net.shadowfacts.craftingslabs.compat.Compat;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.shadowfacts.craftingslabs.container.ContainerCrafting;
+import net.shadowfacts.shadowmc.compat.Compat;
 
 /**
  * @author shadowfacts

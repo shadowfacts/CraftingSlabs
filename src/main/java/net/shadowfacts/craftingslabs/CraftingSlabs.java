@@ -1,57 +1,41 @@
 package net.shadowfacts.craftingslabs;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.shadowfacts.craftingslabs.compat.ModCompat;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.shadowfacts.craftingslabs.block.ModBlocks;
+import net.shadowfacts.craftingslabs.items.ModItems;
+import net.shadowfacts.craftingslabs.proxy.CommonProxy;
 
 /**
  * @author shadowfacts
  */
-@Mod(modid = CraftingSlabs.modId, name = CraftingSlabs.name)
+@Mod(modid = CraftingSlabs.modId, name = CraftingSlabs.name, version = CraftingSlabs.version, dependencies = CraftingSlabs.dependencies)
 public class CraftingSlabs {
 
-	public static final String modId = "craftingslabs";
-	public static final String name = "CraftingSlabs";
+	public static final String modId = "CraftingSlabs";
+	public static final String name = modId;
+	public static final String version = "2.0.0";
+	public static final String dependencies = "required-after:shadowmc;";
 
 	@Mod.Instance(modId)
 	public static CraftingSlabs instance;
 
-//	Content
-	public static BlockCraftingSlab craftingSlab;
+	@SidedProxy(serverSide = "net.shadowfacts.craftingslabs.proxy.CommonProxy", clientSide = "net.shadowfacts.craftingslabs.proxy.ClientProxy")
+	public static CommonProxy proxy;
+
+	public static ModBlocks blocks = new ModBlocks();
+	public static ModItems items = new ModItems();
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		craftingSlab = new BlockCraftingSlab(false, Material.wood);
-
-		GameRegistry.registerBlock(craftingSlab, "crafting_slab");
-
-		GameRegistry.addShapelessRecipe(new ItemStack(craftingSlab), Blocks.crafting_table);
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.crafting_table), craftingSlab);
-
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-
-		ModCompat.registerModules();
-		if (event.getSide() == Side.CLIENT) ModCompat.registerClientModules();
-
-		ModCompat.preInit(event);
+		proxy.preInit(event);
 	}
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-		ModCompat.init(event);
-	}
-
-	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		ModCompat.postInit(event);
+		proxy.init(event);
 	}
 
 }

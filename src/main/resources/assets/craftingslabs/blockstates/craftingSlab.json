@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"half=bottom,variant=false": {
+			"model": "craftingslabs:bottom_crafting_slab"
+		},
+		"half=top,variant=false": {
+			"model": "craftingslabs:top_crafting_slab"
+		},
+		"half=bottom,variant=true": {
+			"model": "craftingslabs:bottom_crafting_slab"
+		},
+		"half=top,variant=true": {
+			"model": "craftingslabs:top_crafting_slab"
+		}
+	}
+}
