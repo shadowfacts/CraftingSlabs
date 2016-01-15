@@ -4,6 +4,7 @@ import mezz.jei.api.*;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import net.shadowfacts.craftingslabs.container.ContainerCrafting;
+import net.shadowfacts.craftingslabs.container.ContainerFurnace;
 
 /**
  * @author shadowfacts
@@ -29,6 +30,7 @@ public class CSPlugin implements IModPlugin {
 		IRecipeTransferRegistry recipeTransferRegistry = registry.getRecipeTransferRegistry();
 
 		recipeTransferRegistry.addRecipeTransferHandler(ContainerCrafting.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
+		recipeTransferRegistry.addRecipeTransferHandler(ContainerFurnace.class, VanillaRecipeCategoryUid.SMELTING, 0, 1, 1, 36);
 	}
 
 	@Override

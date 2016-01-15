@@ -5,6 +5,7 @@ package net.shadowfacts.craftingslabs.gui;
  */
 public enum GUIs {
 
-	CRAFTING
+	CRAFTING,
+	FURNACE
 
 }

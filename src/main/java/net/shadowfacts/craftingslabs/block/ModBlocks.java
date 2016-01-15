@@ -10,10 +10,13 @@ import net.shadowfacts.craftingslabs.items.ItemBlockCraftingSlab;
 public class ModBlocks {
 
 	public BlockCraftingSlab craftingSlab;
+	public BlockFurnaceSlab furnaceSlab;
 
 	public void register() {
 		craftingSlab = new BlockCraftingSlab();
-		GameRegistry.registerBlock(craftingSlab, ItemBlockCraftingSlab.class, "craftingSlab", craftingSlab, craftingSlab);
+		GameRegistry.registerBlock(craftingSlab, ItemBlockCraftingSlab.class, "craftingSlab", craftingSlab);
+		furnaceSlab = new BlockFurnaceSlab();
+		GameRegistry.registerBlock(furnaceSlab, ItemBlockCraftingSlab.class, "furnaceSlab", furnaceSlab);
 	}
 
 	private static <T extends Block> T register(T block, String name) {

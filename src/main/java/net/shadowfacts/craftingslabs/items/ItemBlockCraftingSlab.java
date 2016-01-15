@@ -10,19 +10,23 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
+import net.shadowfacts.craftingslabs.block.BlockFurnaceSlab;
 
 /**
  * @author shadowfacts
  */
 public class ItemBlockCraftingSlab extends ItemBlock {
 
-	private final BlockSlab singleSlab;
-	private final BlockSlab doubleSlab;
+	private final BlockSlab slab;
 
-	public ItemBlockCraftingSlab(Block block, BlockCraftingSlab singleSlab, BlockCraftingSlab doubleSlab) {
+	public ItemBlockCraftingSlab(Block block, BlockCraftingSlab slab) {
 		super(block);
-		this.singleSlab = singleSlab;
-		this.doubleSlab = doubleSlab;
+		this.slab = slab;
+	}
+
+	public ItemBlockCraftingSlab(Block block, BlockFurnaceSlab slab) {
+		super(block);
+		this.slab = slab;
 	}
 
 	@Override
@@ -39,6 +43,6 @@ public class ItemBlockCraftingSlab extends ItemBlock {
 	@Override
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
 		IBlockState state = world.getBlockState(pos.offset(side));
-		return state.getBlock() == singleSlab || super.canPlaceBlockOnSide(world, pos, side, player, stack);
+		return state.getBlock() == slab || super.canPlaceBlockOnSide(world, pos, side, player, stack);
 	}
 }
