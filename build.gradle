@@ -63,12 +63,17 @@ repositories {
 		name "blay09"
 		url "http://repo.blay09.net/"
 	}
+	maven {
+		name "progwml6"
+		url "http://dvs1.progwml6.com/files/maven/"
+	}
 }
 
 dependencies {
 	deobfCompile group: "net.shadowfacts", name: "ShadowMC", version: mc_version + "-" + shadowmc_version
 	deobfCompile group: "MCMultiPart", name: "MCMultiPart", version: mcmp_version, classifier: "universal"
 	deobfCompile group: "net.blay09.mods", name: "craftingtweaks", version: ct_version
+	deobfCompile group: "mezz.jei", name: "jei_1.8.9", version: jei_version
 }
 
 task(release, dependsOn: ["generateChangelog", "tagRelease", "curseforge"])
