@@ -32,9 +32,9 @@ import java.util.Random;
  */
 public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 
-	private static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	private static final PropertyBool VARIANT = PropertyBool.create("variant");
-	private static final PropertyBool BURNING = PropertyBool.create("burning");
+	public static final PropertyBool BURNING = PropertyBool.create("burning");
 
 	private static boolean keepInventory;
 
@@ -145,12 +145,12 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(this);
+		return CraftingSlabs.items.furnaceSlab;
 	}
 
 	@Override
 	public Item getItem(World worldIn, BlockPos pos) {
-		return Item.getItemFromBlock(this);
+		return CraftingSlabs.items.furnaceSlab;
 	}
 
 	@Override

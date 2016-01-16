@@ -32,11 +32,10 @@ public class TileEntityFurnaceSlab extends TileEntity implements ITickable, ISid
 
 	private ItemStack[] inventory = new ItemStack[3];
 
-	private int furnaceBurnTime;
-
-	private int currentItemBurnTime;
-	private int cookTime;
-	private int totalCookTime;
+	public int furnaceBurnTime;
+	public int currentItemBurnTime;
+	public int cookTime;
+	public int totalCookTime;
 
 	@Override
 	public int getSizeInventory() {

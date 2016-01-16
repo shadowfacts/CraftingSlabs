@@ -49,10 +49,10 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 	private static final PropertyBool BURNING = PropertyBool.create("burning");
 
 	private ItemStack[] inventory = new ItemStack[3];
-	private int furnaceBurnTime;
-	private int currentItemBurnTime;
-	private int cookTime;
-	private int totalCookTime;
+	public int furnaceBurnTime;
+	public int currentItemBurnTime;
+	public int cookTime;
+	public int totalCookTime;
 
 	@Getter @Setter
 	private EnumFacing facing;
@@ -93,12 +93,12 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	@Override
 	public ItemStack getPickBlock(EntityPlayer player, PartMOP hit) {
-		return new ItemStack(CraftingSlabs.items.partFurnaceSlab);
+		return new ItemStack(CraftingSlabs.items.furnaceSlab);
 	}
 
 	@Override
 	public List<ItemStack> getDrops() {
-		return Arrays.asList(new ItemStack(CraftingSlabs.items.partFurnaceSlab));
+		return Arrays.asList(new ItemStack(CraftingSlabs.items.furnaceSlab));
 	}
 
 	@Override

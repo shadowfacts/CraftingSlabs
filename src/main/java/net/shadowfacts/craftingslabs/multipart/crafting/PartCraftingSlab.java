@@ -66,12 +66,12 @@ public class PartCraftingSlab extends Multipart implements ISlottedPart {
 
 	@Override
 	public ItemStack getPickBlock(EntityPlayer player, PartMOP hit) {
-		return new ItemStack(CraftingSlabs.items.partCraftingSlab);
+		return new ItemStack(CraftingSlabs.items.craftingSlab);
 	}
 
 	@Override
 	public List<ItemStack> getDrops() {
-		return Arrays.asList(new ItemStack(CraftingSlabs.items.partCraftingSlab));
+		return Arrays.asList(new ItemStack(CraftingSlabs.items.craftingSlab));
 	}
 
 	@Override

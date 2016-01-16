@@ -31,7 +31,7 @@ public class MiscUtils {
 	}
 
 	public static boolean isFurnaceSlab(World world, BlockPos pos) {
-		return world.getBlockState(pos) == CraftingSlabs.blocks.furnaceSlab || hasPartFurnaceSlab(world, pos);
+		return world.getBlockState(pos).getBlock() == CraftingSlabs.blocks.furnaceSlab || hasPartFurnaceSlab(world, pos);
 	}
 
 }

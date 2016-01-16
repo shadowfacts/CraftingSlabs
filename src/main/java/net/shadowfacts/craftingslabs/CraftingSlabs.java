@@ -12,13 +12,13 @@ import net.shadowfacts.craftingslabs.proxy.CommonProxy;
 /**
  * @author shadowfacts
  */
-@Mod(modid = CraftingSlabs.modId, name = CraftingSlabs.name, version = CraftingSlabs.version, dependencies = CraftingSlabs.dependencies)
+@Mod(modid = CraftingSlabs.modId, name = CraftingSlabs.name, version = CraftingSlabs.version, dependencies = CraftingSlabs.dependencies, acceptedMinecraftVersions = "[1.8.8,1.8.9]")
 public class CraftingSlabs {
 
 	public static final String modId = "CraftingSlabs";
 	public static final String name = modId;
 	public static final String version = "2.0.0";
-	public static final String dependencies = "required-after:shadowmc;";
+	public static final String dependencies = "required-after:shadowmc;after:mcmultipart@[1.0.4,)";
 
 	@Mod.Instance(modId)
 	public static CraftingSlabs instance;
