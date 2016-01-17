@@ -109,6 +109,8 @@ curseforge {
 		addGameVersion "1.8.8"
 		addGameVersion "1.8.9"
 
+		addGameVersion "Java 8"
+
 		mainArtifact(jar) {
 			releaseType = "release"
 			changelog = file("changelog.txt").text

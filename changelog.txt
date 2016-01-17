@@ -1,0 +1,14 @@
+- Initial port to 1.8.9
+
+- JEI compat
+
+- Furnace Slab
+
+- Recipes
+
+- Inventory models
+
+- Crafting Slab and Furnace Slab MULTIPARTS! :D
+
+- Stuff and things
+
