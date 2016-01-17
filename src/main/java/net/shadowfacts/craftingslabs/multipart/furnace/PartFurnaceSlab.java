@@ -163,6 +163,7 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		burning = buf.readBoolean();
 	}
 
 	@Override
@@ -170,6 +171,7 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 		NBTTagCompound tag = new NBTTagCompound();
 		writeToNBT(tag);
 		buf.writeNBTTagCompoundToBuffer(tag);
+		buf.writeBoolean(burning);
 	}
 
 	@Override
@@ -244,7 +246,7 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	@Override
 	public void update() {
-		boolean flag = isBurning();
+		boolean prevBurning = isBurning();
 		boolean flag1 = false;
 
 		if (isBurning()) {
@@ -284,7 +286,7 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 				cookTime = MathHelper.clamp_int(cookTime - 2, 0, totalCookTime);
 			}
 
-			if (flag != isBurning()) {
+			if (prevBurning != isBurning()) {
 				flag1 = true;
 				burning = isBurning();
 				sendUpdatePacket(true);
