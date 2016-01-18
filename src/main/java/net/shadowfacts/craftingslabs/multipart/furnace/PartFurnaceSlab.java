@@ -34,10 +34,7 @@ import net.shadowfacts.craftingslabs.CraftingSlabs;
 import net.shadowfacts.craftingslabs.gui.GUIs;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author shadowfacts
@@ -54,9 +51,11 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 	public int cookTime;
 	public int totalCookTime;
 
+	public UUID playerUsingGUI;
+
 	@Getter @Setter
 	private EnumFacing facing;
-	@Getter @Setter
+	@Setter
 	private boolean burning;
 	@Getter @Setter
 	private BlockSlab.EnumBlockHalf half = BlockSlab.EnumBlockHalf.BOTTOM;
@@ -108,6 +107,7 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	@Override
 	public boolean onActivated(EntityPlayer player, ItemStack stack, PartMOP hit) {
+		playerUsingGUI = player.getPersistentID();
 		player.openGui(CraftingSlabs.instance, GUIs.FURNACE.ordinal(), player.worldObj, hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ());
 		return true;
 	}

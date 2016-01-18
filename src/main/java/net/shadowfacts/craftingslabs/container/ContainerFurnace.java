@@ -8,8 +8,10 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.shadowfacts.craftingslabs.multipart.furnace.PartFurnaceSlab;
 import net.shadowfacts.craftingslabs.util.MiscUtils;
 
 /**
@@ -143,5 +145,12 @@ public class ContainerFurnace extends Container {
 		}
 
 		return itemstack;
+	}
+
+	@Override
+	public void onContainerClosed(EntityPlayer playerIn) {
+		if (Loader.isModLoaded("mcmultipart") && furnace instanceof PartFurnaceSlab) {
+			((PartFurnaceSlab)furnace).playerUsingGUI = null;
+		}
 	}
 }

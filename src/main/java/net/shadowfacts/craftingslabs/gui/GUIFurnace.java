@@ -7,7 +7,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 import net.shadowfacts.craftingslabs.container.ContainerFurnace;
+import net.shadowfacts.craftingslabs.multipart.furnace.PartFurnaceSlab;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
 
 /**
@@ -65,4 +67,11 @@ public class GUIFurnace extends GuiContainer {
 		return furnace.getField(0) * pixels / i;
 	}
 
+	@Override
+	public void onGuiClosed() {
+		super.onGuiClosed();
+		if (Loader.isModLoaded("mcmultipart") && furnace instanceof PartFurnaceSlab) {
+			((PartFurnaceSlab)furnace).playerUsingGUI = null;
+		}
+	}
 }

@@ -1,5 +1,6 @@
 package net.shadowfacts.craftingslabs.gui;
 
+import mcmultipart.multipart.PartSlot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
@@ -29,7 +30,12 @@ public class GUIHandler implements IGuiHandler {
 				if (te instanceof TileEntityFurnaceSlab) {
 					furnace = (TileEntityFurnaceSlab)te;
 				} else if (Loader.isModLoaded("mcmultipart")) {
-					furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, null);
+					PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN);
+					if (partFurnace != null && player.getPersistentID().equals(partFurnace.playerUsingGUI)) {
+						furnace = partFurnace;
+					} else {
+						furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP);
+					}
 				}
 				return new ContainerFurnace(player.inventory, furnace, world, pos);
 			default:
@@ -49,7 +55,12 @@ public class GUIHandler implements IGuiHandler {
 				if (te instanceof TileEntityFurnaceSlab) {
 					furnace = (TileEntityFurnaceSlab)te;
 				} else if (Loader.isModLoaded("mcmultipart")) {
-					furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, null);
+					PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN);
+					if (partFurnace != null && player.getPersistentID().equals(partFurnace.playerUsingGUI)) {
+						furnace = partFurnace;
+					} else {
+						furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP);
+					}furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, null);
 				}
 					return new GUIFurnace(player.inventory, furnace, world, pos);
 			default:
