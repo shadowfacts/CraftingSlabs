@@ -13,6 +13,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -242,6 +243,11 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 					getWorld().spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
 			}
 		}
+	}
+
+	@Override
+	public int getLightValue() {
+		return burning ? 13 : 0;
 	}
 
 	@Override

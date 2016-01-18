@@ -18,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -82,6 +83,11 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 					world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
 			}
 		}
+	}
+
+	@Override
+	public int getLightValue(IBlockAccess world, BlockPos pos) {
+		return world.getBlockState(pos).getValue(BURNING) ? 13 : 0;
 	}
 
 	@Override
