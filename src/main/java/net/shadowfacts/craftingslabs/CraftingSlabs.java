@@ -18,7 +18,7 @@ public class CraftingSlabs {
 	public static final String modId = "CraftingSlabs";
 	public static final String name = modId;
 	public static final String version = "2.0.0";
-	public static final String dependencies = "required-after:shadowmc;after:mcmultipart@[1.0.4,)";
+	public static final String dependencies = "required-after:shadowmc;after:mcmultipart@[1.0.5,)";
 
 	@Mod.Instance(modId)
 	public static CraftingSlabs instance;
