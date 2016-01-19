@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
 import net.shadowfacts.craftingslabs.compat.craftingtweaks.CompatCraftingTweaks;
 import net.shadowfacts.craftingslabs.gui.GUIHandler;
@@ -59,11 +60,9 @@ public class CommonProxy {
 	}
 
 	private void registerRecipes() {
-		GameRegistry.addShapelessRecipe(new ItemStack(CraftingSlabs.items.craftingSlab), Blocks.crafting_table);
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.crafting_table), CraftingSlabs.items.craftingSlab);
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(CraftingSlabs.items.craftingSlab), "SS", "SS", 'S', "slabWood"));
 
-		GameRegistry.addShapelessRecipe(new ItemStack(CraftingSlabs.items.furnaceSlab), Blocks.furnace);
-		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.furnace), CraftingSlabs.items.furnaceSlab);
+		GameRegistry.addShapedRecipe(new ItemStack(CraftingSlabs.items.furnaceSlab), "SS", "SS", 'S', new ItemStack(Blocks.stone_slab, 1, 3));
 	}
 
 	@Optional.Method(modid = "mcmultipart")
