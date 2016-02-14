@@ -1,20 +1,4 @@
-- Release
-
-- Sync burning state
-
-Fixes #4
-
-- Differentiate between furnace slabs when 2 are in the same block for GUI/container
-
-It's a shitty solution, I know
-
-- Light level for furnaces
-
-Closes #3
-
-- Update required MCMP
-
-- Change recipe
+- Fix for latest ShadowMC
 
 - Bump version
 
