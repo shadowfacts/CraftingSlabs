@@ -13,7 +13,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -40,7 +39,7 @@ import java.util.*;
 /**
  * @author shadowfacts
  */
-public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart, ISlottedPart, ITickable, IInventory {
+public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart, ISlottedPart, IOccludingPart, ITickable, IInventory {
 
 	public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -76,6 +75,11 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 		} else {
 			return AxisAlignedBB.fromBounds(0, .5, 0, 1, 1, 1);
 		}
+	}
+
+	@Override
+	public void addOcclusionBoxes(List<AxisAlignedBB> list) {
+		list.add(getBoundingBox());
 	}
 
 	@Override

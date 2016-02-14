@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @author shadowfacts
  */
-public class PartCraftingSlab extends Multipart implements ISlottedPart {
+public class PartCraftingSlab extends Multipart implements ISlottedPart, IOccludingPart {
 
 	public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
 
@@ -49,6 +49,11 @@ public class PartCraftingSlab extends Multipart implements ISlottedPart {
 		} else {
 			return AxisAlignedBB.fromBounds(0, .5, 0, 1, 1, 1);
 		}
+	}
+
+	@Override
+	public void addOcclusionBoxes(List<AxisAlignedBB> list) {
+		list.add(getBoundingBox());
 	}
 
 	@Override
