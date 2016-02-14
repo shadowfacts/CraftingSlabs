@@ -102,7 +102,12 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	@Override
 	public List<ItemStack> getDrops() {
-		return Arrays.asList(new ItemStack(CraftingSlabs.items.furnaceSlab));
+		List<ItemStack> drops = new ArrayList<>();
+		drops.add(new ItemStack(CraftingSlabs.items.furnaceSlab));
+		for (ItemStack stack : inventory) {
+			drops.add(stack);
+		}
+		return drops;
 	}
 
 	@Override
