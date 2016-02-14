@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -21,7 +22,6 @@ import net.shadowfacts.craftingslabs.multipart.furnace.PartFurnaceSlab;
 import net.shadowfacts.craftingslabs.multipart.furnace.PartFurnaceSlabConverter;
 import net.shadowfacts.craftingslabs.multipart.furnace.PartFurnaceSlabReverseConverter;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
-import net.shadowfacts.shadowmc.compat.CompatRegistrar;
 
 /**
  * @author shadowfacts
@@ -47,8 +47,12 @@ public class CommonProxy {
 		registerInventoryModels();
 	}
 
+	public void postInit(FMLPostInitializationEvent event) {
+
+	}
+
 	protected void registerCompatModules() {
-		CompatRegistrar.registerModule(CompatCraftingTweaks.class);
+		CraftingSlabs.instance.compatManager.registerModule(CompatCraftingTweaks.class);
 	}
 
 	protected void registerInventoryModels() {
@@ -80,5 +84,4 @@ public class CommonProxy {
 	public World getClientWorld() {
 		return null;
 	}
-
 }

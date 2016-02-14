@@ -1,14 +1,20 @@
-- Initial port to 1.8.9
+- Release
 
-- JEI compat
+- Sync burning state
 
-- Furnace Slab
+Fixes #4
 
-- Recipes
+- Differentiate between furnace slabs when 2 are in the same block for GUI/container
 
-- Inventory models
+It's a shitty solution, I know
 
-- Crafting Slab and Furnace Slab MULTIPARTS! :D
+- Light level for furnaces
 
-- Stuff and things
+Closes #3
+
+- Update required MCMP
+
+- Change recipe
+
+- Bump version
 
