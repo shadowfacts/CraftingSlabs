@@ -71,7 +71,7 @@ repositories {
 
 dependencies {
 	deobfCompile group: "net.shadowfacts", name: "ShadowMC", version: mc_version + "-" + shadowmc_version
-	deobfCompile group: "MCMultiPart", name: "MCMultiPart-experimental", version: mcmp_version, classifier: "universal"
+	deobfCompile group: "MCMultiPart", name: "MCMultiPart", version: mcmp_version, classifier: "universal"
 	deobfCompile group: "net.blay09.mods", name: "craftingtweaks", version: ct_version
 	deobfCompile group: "mezz.jei", name: "jei_1.8.9", version: jei_version
 }

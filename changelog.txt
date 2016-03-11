@@ -1,4 +1,10 @@
-- Fix for latest ShadowMC
+- IOccludingPart
+
+Fixes #7
+
+- Drop inventory items
+
+Fixes #5
 
 - Bump version
 
