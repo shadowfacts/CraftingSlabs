@@ -1,10 +1,12 @@
-- IOccludingPart
+- Add issue template
 
-Fixes #7
+- Update MCMultiPart
 
-- Drop inventory items
+- Fix NPE causing infinite dupe bug
 
-Fixes #5
+Fixes #8
+
+- Fix derpy GUI things
 
 - Bump version
 
