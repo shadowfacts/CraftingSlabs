@@ -104,9 +104,9 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 	public List<ItemStack> getDrops() {
 		List<ItemStack> drops = new ArrayList<>();
 		drops.add(new ItemStack(CraftingSlabs.items.furnaceSlab));
-		for (ItemStack stack : inventory) {
-			drops.add(stack);
-		}
+		Arrays.stream(inventory)
+				.filter(stack -> stack != null)
+				.forEach(drops::add);
 		return drops;
 	}
 
@@ -215,7 +215,7 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	@Override
 	public float getHardness(PartMOP hit) {
-		return .3f;
+		return 0.5f;
 	}
 
 	@Override
