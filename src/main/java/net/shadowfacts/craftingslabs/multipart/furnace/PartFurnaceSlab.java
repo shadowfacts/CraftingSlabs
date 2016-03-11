@@ -31,7 +31,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
-import net.shadowfacts.craftingslabs.gui.GUIs;
 
 import java.io.IOException;
 import java.util.*;
@@ -117,8 +116,7 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	@Override
 	public boolean onActivated(EntityPlayer player, ItemStack stack, PartMOP hit) {
-		playerUsingGUI = player.getPersistentID();
-		player.openGui(CraftingSlabs.instance, GUIs.FURNACE.ordinal(), player.worldObj, hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ());
+		player.openGui(CraftingSlabs.instance, half == BlockSlab.EnumBlockHalf.BOTTOM ? 0 : 1, player.worldObj, hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ());
 		return true;
 	}
 

@@ -14,7 +14,6 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
-import net.shadowfacts.craftingslabs.gui.GUIs;
 
 import java.util.Random;
 
@@ -92,7 +91,7 @@ public class BlockCraftingSlab extends BlockSlab {
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
-		player.openGui(CraftingSlabs.instance, GUIs.CRAFTING.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+		player.openGui(CraftingSlabs.instance, 2, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 }

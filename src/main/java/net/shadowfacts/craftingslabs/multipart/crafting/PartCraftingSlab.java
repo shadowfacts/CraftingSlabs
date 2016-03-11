@@ -19,7 +19,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
-import net.shadowfacts.craftingslabs.gui.GUIs;
 
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -86,7 +85,7 @@ public class PartCraftingSlab extends Multipart implements ISlottedPart, IOcclud
 
 	@Override
 	public boolean onActivated(EntityPlayer player, ItemStack stack, PartMOP hit) {
-		player.openGui(CraftingSlabs.instance, GUIs.CRAFTING.ordinal(), player.worldObj, hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ());
+		player.openGui(CraftingSlabs.instance, 2, player.worldObj, hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ());
 		return true;
 	}
 

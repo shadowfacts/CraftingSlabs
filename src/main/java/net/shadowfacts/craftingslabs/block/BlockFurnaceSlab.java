@@ -23,7 +23,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
-import net.shadowfacts.craftingslabs.gui.GUIs;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
 
 import java.util.Random;
@@ -161,7 +160,7 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
-		player.openGui(CraftingSlabs.instance, GUIs.FURNACE.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+		player.openGui(CraftingSlabs.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 

@@ -20,52 +20,74 @@ public class GUIHandler implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		switch (GUIs.values()[ID]) {
-			case CRAFTING:
-				return new ContainerCrafting(player.inventory, world, new BlockPos(x, y, z));
-			case FURNACE:
-				BlockPos pos = new BlockPos(x, y, z);
-				IInventory furnace = null;
-				TileEntity te = world.getTileEntity(pos);
-				if (te instanceof TileEntityFurnaceSlab) {
-					furnace = (TileEntityFurnaceSlab)te;
-				} else if (Loader.isModLoaded("mcmultipart")) {
-					PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN);
-					if (partFurnace != null && player.getPersistentID().equals(partFurnace.playerUsingGUI)) {
-						furnace = partFurnace;
-					} else {
-						furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP);
-					}
+		if (ID == 0) { // furnace bottom
+			BlockPos pos = new BlockPos(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
+			IInventory inv = null;
+			if (te instanceof TileEntityFurnaceSlab) {
+				inv = (TileEntityFurnaceSlab)te;
+			} else if (Loader.isModLoaded("mcmultipart")) {
+				PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN);
+				if (partFurnace != null) {
+					inv = partFurnace;
 				}
-				return new ContainerFurnace(player.inventory, furnace, world, pos);
-			default:
-				return null;
+			}
+
+			return new ContainerFurnace(player.inventory, inv, world, pos);
+		} else if (ID == 1) { // furnace top
+			BlockPos pos = new BlockPos(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
+			IInventory inv = null;
+			if (te instanceof TileEntityFurnaceSlab) {
+				inv = (TileEntityFurnaceSlab)te;
+			} else if (Loader.isModLoaded("mcmultipart")) {
+				PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP);
+				if (partFurnace != null) {
+					inv = partFurnace;
+				}
+			}
+
+			return new ContainerFurnace(player.inventory, inv, world, pos);
+		} else if (ID == 2) { // crafting
+			return new ContainerCrafting(player.inventory, world, new BlockPos(x, y, z));
 		}
+		return null;
 	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		switch (GUIs.values()[ID]) {
-			case CRAFTING:
-				return new GUICrafting(player.inventory, world, new BlockPos(x, y, z));
-			case FURNACE:
-				BlockPos pos = new BlockPos(x, y, z);
-				IInventory furnace = null;
-				TileEntity te = world.getTileEntity(pos);
-				if (te instanceof TileEntityFurnaceSlab) {
-					furnace = (TileEntityFurnaceSlab)te;
-				} else if (Loader.isModLoaded("mcmultipart")) {
-					PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN);
-					if (partFurnace != null && player.getPersistentID().equals(partFurnace.playerUsingGUI)) {
-						furnace = partFurnace;
-					} else {
-						furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP);
-					}furnace = PartFurnaceSlab.getFurnaceSlab(world, pos, null);
+		if (ID == 0) { // furnace bottom
+			BlockPos pos = new BlockPos(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
+			IInventory inv = null;
+			if (te instanceof TileEntityFurnaceSlab) {
+				inv = (TileEntityFurnaceSlab)te;
+			} else if (Loader.isModLoaded("mcmultipart")) {
+				PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN);
+				if (partFurnace != null) {
+					inv = partFurnace;
 				}
-					return new GUIFurnace(player.inventory, furnace, world, pos);
-			default:
-				return null;
+			}
+
+			return new GUIFurnace(player.inventory, inv, world, pos);
+		} else if (ID == 1) { // furnace top
+			BlockPos pos = new BlockPos(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
+			IInventory inv = null;
+			if (te instanceof TileEntityFurnaceSlab) {
+				inv = (TileEntityFurnaceSlab)te;
+			} else if (Loader.isModLoaded("mcmultipart")) {
+				PartFurnaceSlab partFurnace = PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP);
+				if (partFurnace != null) {
+					inv = partFurnace;
+				}
+			}
+
+			return new GUIFurnace(player.inventory, inv, world, pos);
+		} else if (ID == 2) { // crafting
+			return new GUICrafting(player.inventory, world, new BlockPos(x, y, z));
 		}
+		return null;
 	}
 
 }
