@@ -6,31 +6,31 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.shadowfacts.craftingslabs.multipart.furnace.PartFurnaceSlab;
 import net.shadowfacts.craftingslabs.util.MiscUtils;
+import net.shadowfacts.shadowmc.inventory.ContainerBase;
 
 /**
  * @author shadowfacts
  */
-public class ContainerFurnace extends Container {
+public class ContainerFurnace extends ContainerBase {
 
 	private final IInventory furnace;
 	private World world;
-	private BlockPos pos;
 	private int cookTime;
 	private int totalCookTime;
 	private int furnaceBurnTime;
 	private int currentItemBurnTime;
 
 	public ContainerFurnace(InventoryPlayer playerInv, IInventory furnace, World world, BlockPos pos) {
+		super(pos);
 		this.furnace = furnace;
 		this.world = world;
-		this.pos = pos;
 		addSlotToContainer(new Slot(furnace, 0, 56, 17));
 		addSlotToContainer(new SlotFurnaceFuel(furnace, 1, 56, 53));
 		addSlotToContainer(new SlotFurnaceOutput(playerInv.player, furnace, 2, 116, 35));
@@ -47,16 +47,16 @@ public class ContainerFurnace extends Container {
 	}
 
 	@Override
-	public void onCraftGuiOpened(ICrafting listener) {
-		super.onCraftGuiOpened(listener);
+	public void addListener(ICrafting listener) {
+		super.addListener(listener);
 		listener.sendAllWindowProperties(this, furnace);
 	}
 
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		for (int i = 0; i < crafters.size(); ++i) {
-			ICrafting icrafting = (ICrafting)this.crafters.get(i);
+		for (int i = 0; i < listeners.size(); ++i) {
+			ICrafting icrafting = (ICrafting)this.listeners.get(i);
 
 			if (this.cookTime != this.furnace.getField(2))
 			{
@@ -93,7 +93,7 @@ public class ContainerFurnace extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return MiscUtils.isFurnaceSlab(world, pos) && furnace.isUseableByPlayer(player);
+		return MiscUtils.isFurnaceSlab(world, pos) && super.canInteractWith(player);
 	}
 
 	@Override

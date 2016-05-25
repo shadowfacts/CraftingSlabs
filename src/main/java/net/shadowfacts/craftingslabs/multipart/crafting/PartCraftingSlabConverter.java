@@ -3,9 +3,8 @@ package net.shadowfacts.craftingslabs.multipart.crafting;
 import mcmultipart.multipart.IMultipart;
 import mcmultipart.multipart.IPartConverter;
 import net.minecraft.block.Block;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.common.Optional;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
 import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
 
@@ -15,7 +14,7 @@ import java.util.Collections;
 /**
  * @author shadowfacts
  */
-public class PartCraftingSlabConverter implements IPartConverter.IPartConverter2 {
+public class PartCraftingSlabConverter implements IPartConverter {
 
 	@Override
 	public Collection<Block> getConvertableBlocks() {

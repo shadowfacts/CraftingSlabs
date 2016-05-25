@@ -2,6 +2,7 @@ package net.shadowfacts.craftingslabs.multipart.crafting;
 
 import mcmultipart.multipart.IMultipartContainer;
 import mcmultipart.multipart.IPartConverter;
+import mcmultipart.multipart.IReversePartConverter;
 import net.minecraftforge.fml.common.Optional;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
 import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
@@ -9,7 +10,7 @@ import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
 /**
  * @author shadowfacts
  */
-public class PartCraftingSlabReverseConverter implements IPartConverter.IReversePartConverter {
+public class PartCraftingSlabReverseConverter implements IReversePartConverter {
 
 	@Override
 	public boolean convertToBlock(IMultipartContainer container) {

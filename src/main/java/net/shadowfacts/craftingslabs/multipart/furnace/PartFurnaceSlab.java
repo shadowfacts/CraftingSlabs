@@ -3,7 +3,6 @@ package net.shadowfacts.craftingslabs.multipart.furnace;
 import lombok.Getter;
 import lombok.Setter;
 import mcmultipart.MCMultiPartMod;
-import mcmultipart.client.multipart.IRandomDisplayTickPart;
 import mcmultipart.multipart.*;
 import mcmultipart.raytrace.PartMOP;
 import net.minecraft.block.BlockSlab;
@@ -11,7 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +26,11 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -38,7 +42,7 @@ import java.util.*;
 /**
  * @author shadowfacts
  */
-public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart, ISlottedPart, IOccludingPart, ITickable, IInventory {
+public class PartFurnaceSlab extends Multipart implements ISlottedPart, ITickable, IInventory {
 
 	public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -70,15 +74,10 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	private AxisAlignedBB getBoundingBox() {
 		if (half == BlockSlab.EnumBlockHalf.BOTTOM) {
-			return AxisAlignedBB.fromBounds(0, 0, 0, 1, .5, 1);
+			return new AxisAlignedBB(0, 0, 0, 1, .5, 1);
 		} else {
-			return AxisAlignedBB.fromBounds(0, .5, 0, 1, 1, 1);
+			return new AxisAlignedBB(0, .5, 0, 1, 1, 1);
 		}
-	}
-
-	@Override
-	public void addOcclusionBoxes(List<AxisAlignedBB> list) {
-		list.add(getBoundingBox());
 	}
 
 	@Override
@@ -111,11 +110,11 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 
 	@Override
 	public Material getMaterial() {
-		return Material.rock;
+		return Material.ROCK;
 	}
 
 	@Override
-	public boolean onActivated(EntityPlayer player, ItemStack stack, PartMOP hit) {
+	public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack heldItem, PartMOP hit) {
 		player.openGui(CraftingSlabs.instance, half == BlockSlab.EnumBlockHalf.BOTTOM ? 0 : 1, player.worldObj, hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ());
 		return true;
 	}
@@ -183,8 +182,8 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 	}
 
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(MCMultiPartMod.multipart, HALF, FACING, BURNING);
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(MCMultiPartMod.multipart, HALF, FACING, BURNING);
 	}
 
 	@Override
@@ -196,9 +195,10 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 	}
 
 	@Override
-	public String getModelPath() {
-		return "craftingslabs:partFurnaceSlab";
+	public ResourceLocation getModelPath() {
+		return new ResourceLocation("craftingslabs", "partFurnaceSlab");
 	}
+
 
 	@Override
 	public EnumSet<PartSlot> getSlotMask() {
@@ -378,8 +378,8 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 	}
 
 	@Override
-	public IChatComponent getDisplayName() {
-		return new ChatComponentTranslation(getName());
+	public ITextComponent getDisplayName() {
+		return new TextComponentTranslation(getName());
 	}
 
 	@Override
@@ -428,8 +428,8 @@ public class PartFurnaceSlab extends Multipart implements IRandomDisplayTickPart
 				inventory[2].stackSize += stack.stackSize;
 			}
 
-			if (inventory[0].getItem() == Item.getItemFromBlock(Blocks.sponge) && inventory[0].getMetadata() == 1 && inventory[1] != null && inventory[1].getItem() == Items.bucket) {
-				inventory[1] = new ItemStack(Items.water_bucket);
+			if (inventory[0].getItem() == Item.getItemFromBlock(Blocks.SPONGE) && inventory[0].getMetadata() == 1 && inventory[1] != null && inventory[1].getItem() == Items.BUCKET) {
+				inventory[1] = new ItemStack(Items.WATER_BUCKET);
 			}
 
 			--inventory[0].stackSize;

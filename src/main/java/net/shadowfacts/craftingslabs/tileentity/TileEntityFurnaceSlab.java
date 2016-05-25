@@ -14,11 +14,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.*;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.shadowfacts.craftingslabs.block.BlockFurnaceSlab;
-
-import static net.minecraft.tileentity.TileEntityFurnace.getItemBurnTime;
 
 
 /**
@@ -103,8 +104,8 @@ public class TileEntityFurnaceSlab extends TileEntity implements ITickable, ISid
 	}
 
 	@Override
-	public IChatComponent getDisplayName() {
-		return new ChatComponentTranslation(getName());
+	public ITextComponent getDisplayName() {
+		return new TextComponentString(getName());
 	}
 
 	@Override
@@ -245,8 +246,8 @@ public class TileEntityFurnaceSlab extends TileEntity implements ITickable, ISid
 				inventory[2].stackSize += stack.stackSize;
 			}
 
-			if (inventory[0].getItem() == Item.getItemFromBlock(Blocks.sponge) && inventory[0].getMetadata() == 1 && inventory[1] != null && inventory[1].getItem() == Items.bucket) {
-				inventory[1] = new ItemStack(Items.water_bucket);
+			if (inventory[0].getItem() == Item.getItemFromBlock(Blocks.SPONGE) && inventory[0].getMetadata() == 1 && inventory[1] != null && inventory[1].getItem() == Items.BUCKET) {
+				inventory[1] = new ItemStack(Items.WATER_BUCKET);
 			}
 
 			--inventory[0].stackSize;
@@ -291,7 +292,7 @@ public class TileEntityFurnaceSlab extends TileEntity implements ITickable, ISid
 	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
 		if (side == EnumFacing.DOWN && slot == 1) {
 			Item item = stack.getItem();
-			if (item != Items.water_bucket && item != Items.bucket) {
+			if (item != Items.WATER_BUCKET && item != Items.BUCKET) {
 				return false;
 			}
 		}

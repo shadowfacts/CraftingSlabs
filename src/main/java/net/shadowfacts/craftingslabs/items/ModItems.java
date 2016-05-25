@@ -1,7 +1,6 @@
 package net.shadowfacts.craftingslabs.items;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
 
 /**
@@ -9,12 +8,12 @@ import net.shadowfacts.craftingslabs.CraftingSlabs;
  */
 public class ModItems {
 
-	public Item craftingSlab;
-	public Item furnaceSlab;
+	public ItemCraftingSlab craftingSlab;
+	public ItemFurnaceSlab furnaceSlab;
 
 	public void register() {
-		craftingSlab = GameData.getBlockItemMap().get(CraftingSlabs.blocks.craftingSlab);
-		furnaceSlab = GameData.getBlockItemMap().get(CraftingSlabs.blocks.furnaceSlab);
+		craftingSlab = GameRegistry.register(new ItemCraftingSlab(CraftingSlabs.blocks.craftingSlab));
+		furnaceSlab = GameRegistry.register(new ItemFurnaceSlab(CraftingSlabs.blocks.furnaceSlab));
 	}
 
 }

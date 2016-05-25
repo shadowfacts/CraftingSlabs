@@ -8,15 +8,18 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockSlab.EnumBlockHalf;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
 
@@ -27,7 +30,7 @@ import java.util.List;
 /**
  * @author shadowfacts
  */
-public class PartCraftingSlab extends Multipart implements ISlottedPart, IOccludingPart {
+public class PartCraftingSlab extends Multipart implements ISlottedPart {
 
 	public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
 
@@ -44,15 +47,10 @@ public class PartCraftingSlab extends Multipart implements ISlottedPart, IOcclud
 
 	private AxisAlignedBB getBoundingBox() {
 		if (half == EnumBlockHalf.BOTTOM) {
-			return AxisAlignedBB.fromBounds(0, 0, 0, 1, .5, 1);
+			return new AxisAlignedBB(0, 0, 0, 1, .5, 1);
 		} else {
-			return AxisAlignedBB.fromBounds(0, .5, 0, 1, 1, 1);
+			return new AxisAlignedBB(0, .5, 0, 1, 1, 1);
 		}
-	}
-
-	@Override
-	public void addOcclusionBoxes(List<AxisAlignedBB> list) {
-		list.add(getBoundingBox());
 	}
 
 	@Override
@@ -80,11 +78,10 @@ public class PartCraftingSlab extends Multipart implements ISlottedPart, IOcclud
 
 	@Override
 	public Material getMaterial() {
-		return Material.wood;
+		return Material.WOOD;
 	}
 
-	@Override
-	public boolean onActivated(EntityPlayer player, ItemStack stack, PartMOP hit) {
+	public boolean onActivated(EntityPlayer player, EnumHand hand, ItemStack heldItem, PartMOP hit) {
 		player.openGui(CraftingSlabs.instance, 2, player.worldObj, hit.getBlockPos().getX(), hit.getBlockPos().getY(), hit.getBlockPos().getZ());
 		return true;
 	}
@@ -110,8 +107,8 @@ public class PartCraftingSlab extends Multipart implements ISlottedPart, IOcclud
 	}
 
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(MCMultiPartMod.multipart, HALF);
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(MCMultiPartMod.multipart, HALF);
 	}
 
 	@Override
@@ -120,8 +117,8 @@ public class PartCraftingSlab extends Multipart implements ISlottedPart, IOcclud
 	}
 
 	@Override
-	public String getModelPath() {
-		return "craftingslabs:partCraftingSlab";
+	public ResourceLocation getModelPath() {
+		return new ResourceLocation("craftingslabs", "partCraftingSlab");
 	}
 
 	public void setHalf(EnumBlockHalf half) {

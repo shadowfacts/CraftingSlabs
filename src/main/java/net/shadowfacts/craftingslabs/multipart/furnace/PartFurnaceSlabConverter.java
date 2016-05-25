@@ -6,9 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.common.Optional;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
 import net.shadowfacts.craftingslabs.block.BlockFurnaceSlab;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
@@ -19,7 +18,7 @@ import java.util.Collections;
 /**
  * @author shadowfacts
  */
-public class PartFurnaceSlabConverter implements IPartConverter.IPartConverter2 {
+public class PartFurnaceSlabConverter implements IPartConverter {
 
 	@Override
 	public Collection<Block> getConvertableBlocks() {

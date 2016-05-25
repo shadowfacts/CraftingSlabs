@@ -4,8 +4,9 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import net.shadowfacts.craftingslabs.container.ContainerFurnace;
@@ -30,9 +31,9 @@ public class GUIFurnace extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String s = furnace.getDisplayName().getUnformattedText();
+		String s = I18n.translateToLocal(furnace.getDisplayName().getUnformattedText());
 		fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-		fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, 4210752);
+		fontRendererObj.drawString(playerInv.getDisplayName().getFormattedText(), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override

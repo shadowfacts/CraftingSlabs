@@ -1,4 +1,4 @@
-package net.shadowfacts.craftingslabs.compat.craftingtweaks;
+package net.shadowfacts.craftingslabs.comapt.craftingtweaks;
 
 import net.blay09.mods.craftingtweaks.api.CraftingTweaksAPI;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

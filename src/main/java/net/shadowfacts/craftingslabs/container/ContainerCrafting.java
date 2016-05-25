@@ -1,30 +1,28 @@
 package net.shadowfacts.craftingslabs.container;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.shadowfacts.craftingslabs.CraftingSlabs;
 import net.shadowfacts.craftingslabs.util.MiscUtils;
+import net.shadowfacts.shadowmc.inventory.ContainerBase;
 
 /**
  * @author shadowfacts
  */
-public class ContainerCrafting extends Container {
+public class ContainerCrafting extends ContainerBase {
 
 	public InventoryCrafting matrix = new InventoryCrafting(this, 3, 3);
 	public IInventory result = new InventoryCraftResult();
 
 	private World world;
-	private BlockPos pos;
 
 	public ContainerCrafting(InventoryPlayer playerInv, World world, BlockPos pos) {
+		super(pos);
 		this.world = world;
-		this.pos = pos;
 		addSlotToContainer(new SlotCrafting(playerInv.player, matrix, result, 0, 124, 35));
 
 		for (int i = 0; i < 3; ++i) {
@@ -59,7 +57,7 @@ public class ContainerCrafting extends Container {
 			for (int i = 0; i < 9; ++i) {
 				ItemStack stack = matrix.removeStackFromSlot(i);
 				if (stack != null) {
-					player.dropPlayerItemWithRandomChoice(stack, false);
+					player.dropItem(stack, false);
 				}
 			}
 		}
@@ -67,7 +65,7 @@ public class ContainerCrafting extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return MiscUtils.isCraftingSlab(world, pos) && player.getDistanceSq((double) pos.getX() + .5d, (double) pos.getY() + .5d, (double) pos.getZ() + .5d) <= 64;
+		return MiscUtils.isCraftingSlab(world, pos) && super.canInteractWith(player);
 	}
 
 	@Override

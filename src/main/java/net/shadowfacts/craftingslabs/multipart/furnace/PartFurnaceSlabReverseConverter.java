@@ -1,7 +1,7 @@
 package net.shadowfacts.craftingslabs.multipart.furnace;
 
 import mcmultipart.multipart.IMultipartContainer;
-import mcmultipart.multipart.IPartConverter;
+import mcmultipart.multipart.IReversePartConverter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
@@ -11,7 +11,7 @@ import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
 /**
  * @author shadowfacts
  */
-public class PartFurnaceSlabReverseConverter implements IPartConverter.IReversePartConverter {
+public class PartFurnaceSlabReverseConverter implements IReversePartConverter {
 
 	@Override
 	public boolean convertToBlock(IMultipartContainer container) {

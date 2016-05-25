@@ -6,7 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,10 +15,11 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,10 +40,11 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 	private static boolean keepInventory;
 
 	public BlockFurnaceSlab() {
-		super(Material.rock);
+		super(Material.ROCK);
 		setUnlocalizedName("furnaceSlab");
+		setRegistryName("furnaceSlab");
 		useNeighborBrightness = true;
-		setCreativeTab(CreativeTabs.tabDecorations);
+		setCreativeTab(CreativeTabs.DECORATIONS);
 
 		setDefaultState(blockState.getBaseState()
 						.withProperty(VARIANT, false)
@@ -85,8 +87,8 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, BlockPos pos) {
-		return world.getBlockState(pos).getValue(BURNING) ? 13 : 0;
+	public int getLightValue(IBlockState state) {
+		return state.getValue(BURNING) ? 13 : 0;
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 	}
 
 	@Override
-	public Object getVariant(ItemStack stack) {
+	public Comparable<?> getTypeForItem(ItemStack stack) {
 		return false;
 	}
 
@@ -139,8 +141,8 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 	}
 
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, VARIANT, HALF, FACING, BURNING);
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, VARIANT, HALF, FACING, BURNING);
 	}
 
 	@Override
@@ -153,13 +155,14 @@ public class BlockFurnaceSlab extends BlockSlab implements ITileEntityProvider {
 		return CraftingSlabs.items.furnaceSlab;
 	}
 
+
 	@Override
-	public Item getItem(World worldIn, BlockPos pos) {
-		return CraftingSlabs.items.furnaceSlab;
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(CraftingSlabs.items.furnaceSlab);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		player.openGui(CraftingSlabs.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
