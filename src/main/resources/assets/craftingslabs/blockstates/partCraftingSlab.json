@@ -18,6 +18,10 @@
 			"top": {
 				"model": "craftingslabs:top"
 			}
-		}
+		},
+		"inventory": [{
+			"model": "craftingslabs:bottom",
+			"transform": "forge:default-block"
+		}]
 	}
 }

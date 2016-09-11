@@ -8,10 +8,12 @@ buildscript {
 	}
 	dependencies {
 		classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
 	}
 }
 
 apply plugin: "net.minecraftforge.gradle.forge"
+apply plugin: "kotlin"
 
 version = mc_version + "-" + mod_version
 
@@ -25,6 +27,10 @@ minecraft {
 	mappings = mcp_mappings
 
 	useDepAts = true
+
+	replaceIn "CraftingSlabs.kt"
+	replaceIn "Reference.kt"
+	replace "@VERSION@", mod_version
 }
 
 processResources {
@@ -58,6 +64,7 @@ repositories {
 
 dependencies {
 	deobfCompile group: "net.shadowfacts", name: "ShadowMC", version: mc_version + "-" + shadowmc_version
+	deobfCompile group: "net.shadowfacts", name: "Forgelin", version: forgelin_version
 	deobfCompile group: "MCMultiPart", name: "MCMultiPart", version: mcmp_version, classifier: "universal"
 	deobfCompile group: "mezz.jei", name: "jei_" + mc_version, version: jei_version
 }

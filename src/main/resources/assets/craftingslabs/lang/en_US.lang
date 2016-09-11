@@ -1,5 +1,5 @@
 tile.craftingSlab.name=Crafting Slab
 tile.furnaceSlab.name=Furnace Slab
 
-item.partCraftingSlab.name=Crafting Slab (Multipart)
-item.partFurnaceSlab.name=Furnace Slab (Multipart)
+item.craftingSlab.name=Crafting Slab
+item.furnaceSlab.name=Furnace Slab
