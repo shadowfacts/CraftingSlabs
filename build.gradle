@@ -7,12 +7,8 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT"
+		classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
 	}
-}
-
-plugins {
-	id "com.matthewprenger.cursegradle" version "1.0.6"
 }
 
 apply plugin: "net.minecraftforge.gradle.forge"
@@ -58,36 +54,10 @@ repositories {
 		name "progwml6"
 		url "http://dvs1.progwml6.com/files/maven/"
 	}
-	maven {
-		name "eiranet"
-		url "http://repo.blay09.net"
-	}
 }
 
 dependencies {
 	deobfCompile group: "net.shadowfacts", name: "ShadowMC", version: mc_version + "-" + shadowmc_version
 	deobfCompile group: "MCMultiPart", name: "MCMultiPart", version: mcmp_version, classifier: "universal"
-	deobfCompile group: "mezz.jei", name: "jei_1.9", version: jei_version
-	deobfCompile group: "net.blay09.mods", name: "craftingtweaks", version: "4.0.10"
-}
-
-curseforge {
-	apiKey = project.hasProperty("curseForgeApiKey") ? project.curseForgeApiKey : ""
-
-	project {
-		id = "236326"
-
-		addGameVersion "1.9"
-
-		addGameVersion "Java 8"
-
-		mainArtifact(jar) {
-			releaseType = "release"
-			changelog = file("changelog.txt").text
-
-			relations {
-				requiredLibrary "shadowmc"
-			}
-		}
-	}
+	deobfCompile group: "mezz.jei", name: "jei_" + mc_version, version: jei_version
 }
