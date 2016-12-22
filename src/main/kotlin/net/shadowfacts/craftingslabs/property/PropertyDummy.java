@@ -3,7 +3,6 @@ package net.shadowfacts.craftingslabs.property;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.properties.PropertyHelper;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
@@ -36,7 +35,7 @@ public class PropertyDummy extends PropertyHelper<PropertyDummy.Dummy> {
 		private Dummy() {}
 
 		@Override
-		public int compareTo(@NotNull Dummy o) {
+		public int compareTo(Dummy o) {
 			return 0;
 		}
 	}
