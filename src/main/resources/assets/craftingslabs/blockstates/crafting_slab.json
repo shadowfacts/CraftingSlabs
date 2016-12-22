@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "variants": {
+	"dummy": {
+	  "dummy": {}
+	},
+	"half": {
+	  "top": {
+		"model": "craftingslabs:crafting/top"
+	  },
+	  "bottom": {
+		"model": "craftingslabs:crafting/bottom"
+	  }
+	},
+	"inventory": [{
+	  "model": "craftingslabs:crafting/top"
+	}]
+  }
+}

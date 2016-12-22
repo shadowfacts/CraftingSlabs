@@ -1,6 +1,6 @@
 package net.shadowfacts.craftingslabs;
 
-import mcmultipart.api.item.ItemBlockMultipart;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -22,9 +22,7 @@ public class CraftingSlabs {
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		GameRegistry.register(craftingSlab);
-		ItemBlockMultipart itemBlock = new ItemBlockMultipart(craftingSlab);
-		itemBlock.setRegistryName(craftingSlab.getRegistryName());
-		GameRegistry.register(itemBlock);
+		GameRegistry.register(new ItemBlock(craftingSlab).setRegistryName(craftingSlab.getRegistryName()));
 	}
 
 }

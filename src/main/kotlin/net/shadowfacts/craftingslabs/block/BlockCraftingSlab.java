@@ -1,8 +1,5 @@
 package net.shadowfacts.craftingslabs.block;
 
-import mcmultipart.api.multipart.IMultipart;
-import mcmultipart.api.slot.EnumFaceSlot;
-import mcmultipart.api.slot.IPartSlot;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -14,14 +11,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.property.PropertyDummy;
 
 /**
  * @author shadowfacts
  */
-public class BlockCraftingSlab extends BlockSlab implements IMultipart {
+public class BlockCraftingSlab extends BlockSlab {
 
 	private static final PropertyDummy DUMMY = new PropertyDummy("dummy");
 
@@ -71,23 +67,15 @@ public class BlockCraftingSlab extends BlockSlab implements IMultipart {
 		return getDefaultState().withProperty(HALF, EnumBlockHalf.values()[meta]);
 	}
 
-	private EnumBlockHalf getHalfForPlacement(EnumFacing facing, float hitY) {
-		return facing == EnumFacing.DOWN || hitY > 0.5 ? EnumBlockHalf.TOP : EnumBlockHalf.BOTTOM;
+	public static EnumBlockHalf getHalfForPlacement(EnumFacing facing, float hitY) {
+		if (facing == EnumFacing.DOWN) return EnumBlockHalf.TOP;
+		else if (facing == EnumFacing.UP) return EnumBlockHalf.BOTTOM;
+		else return hitY >= 0.5 ? EnumBlockHalf.TOP : EnumBlockHalf.BOTTOM;
 	}
 
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 		return getDefaultState().withProperty(HALF, getHalfForPlacement(facing, hitY));
-	}
-
-	@Override
-	public IPartSlot getSlotForPlacement(World world, BlockPos pos, IBlockState state, EnumFacing facing, float hitX, float hitY, float hitZ, EntityLivingBase placer) {
-		return getHalfForPlacement(facing, hitY) == EnumBlockHalf.TOP ? EnumFaceSlot.UP : EnumFaceSlot.DOWN;
-	}
-
-	@Override
-	public IPartSlot getSlotFromWorld(IBlockAccess world, BlockPos pos, IBlockState state) {
-		return state.getValue(HALF) == EnumBlockHalf.TOP ? EnumFaceSlot.UP : EnumFaceSlot.DOWN;
 	}
 
 }
