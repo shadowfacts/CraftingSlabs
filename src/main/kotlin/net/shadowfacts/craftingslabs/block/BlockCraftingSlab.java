@@ -6,12 +6,8 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.property.PropertyDummy;
 
 /**
@@ -65,17 +61,6 @@ public class BlockCraftingSlab extends BlockSlab {
 	@Deprecated
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(HALF, EnumBlockHalf.values()[meta]);
-	}
-
-	public static EnumBlockHalf getHalfForPlacement(EnumFacing facing, float hitY) {
-		if (facing == EnumFacing.DOWN) return EnumBlockHalf.TOP;
-		else if (facing == EnumFacing.UP) return EnumBlockHalf.BOTTOM;
-		else return hitY >= 0.5 ? EnumBlockHalf.TOP : EnumBlockHalf.BOTTOM;
-	}
-
-	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return getDefaultState().withProperty(HALF, getHalfForPlacement(facing, hitY));
 	}
 
 }

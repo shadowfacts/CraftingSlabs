@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
-import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
 
 /**
  * @author shadowfacts
@@ -26,7 +25,7 @@ public class PartCraftingSlab implements IMultipart {
 
 	@Override
 	public IPartSlot getSlotForPlacement(World world, BlockPos pos, IBlockState state, EnumFacing facing, float hitX, float hitY, float hitZ, EntityLivingBase placer) {
-		return BlockCraftingSlab.getHalfForPlacement(facing, hitY) == BlockSlab.EnumBlockHalf.TOP ? EnumFaceSlot.UP : EnumFaceSlot.DOWN;
+		return state.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP ? EnumFaceSlot.UP : EnumFaceSlot.DOWN;
 	}
 
 	@Override

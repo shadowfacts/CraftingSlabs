@@ -35,14 +35,4 @@ public class CompatMCMP implements IMCMPAddon {
 		return state;
 	}
 
-//	@SuppressWarnings("unchecked")
-//	private <T extends Comparable<T>> boolean placeSlab(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, IBlockState newState) {
-//		IBlockState currentState = world.getBlockState(pos);
-//		if (currentState.getBlock().isReplaceable(world, pos)) {
-//			world.setBlockState(pos, newState);
-//			return true;
-//		}
-//		return false;
-//	}
-
 }
