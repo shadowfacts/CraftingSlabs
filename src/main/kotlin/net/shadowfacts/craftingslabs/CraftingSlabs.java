@@ -9,7 +9,7 @@ import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
 /**
  * @author shadowfacts
  */
-@Mod(modid = CraftingSlabs.MOD_ID, name = CraftingSlabs.NAME, version = CraftingSlabs.VERSION, dependencies = "required-after:mcmultipart;required-after:shadowmc;")
+@Mod(modid = CraftingSlabs.MOD_ID, name = CraftingSlabs.NAME, version = CraftingSlabs.VERSION, dependencies = "required-before:mcmultipart;required-after:shadowmc;")
 public class CraftingSlabs {
 
 	public static final String MOD_ID = "craftingslabs";
@@ -23,6 +23,7 @@ public class CraftingSlabs {
 	public void preInit(FMLPreInitializationEvent event) {
 		GameRegistry.register(craftingSlab);
 		GameRegistry.register(new ItemBlock(craftingSlab).setRegistryName(craftingSlab.getRegistryName()));
+
 	}
 
 }
