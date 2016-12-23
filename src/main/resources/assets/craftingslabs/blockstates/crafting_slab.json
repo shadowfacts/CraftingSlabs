@@ -13,7 +13,8 @@
 	  }
 	},
 	"inventory": [{
-	  "model": "craftingslabs:crafting/top"
+	  "model": "craftingslabs:crafting/bottom",
+	  "transform": "forge:default-block"
 	}]
   }
 }

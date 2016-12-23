@@ -37,10 +37,11 @@
 	  }
 	},
 	"inventory": [{
-	  "model": "craftingslabs:furnace/top",
+	  "model": "craftingslabs:furnace/bottom",
 	  "textures": {
 		"north": "blocks/furnace_front_off"
-	  }
+	  },
+	  "transform": "forge:default-block"
 	}]
   }
 }
