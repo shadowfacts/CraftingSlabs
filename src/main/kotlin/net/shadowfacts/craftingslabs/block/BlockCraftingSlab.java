@@ -35,7 +35,9 @@ public class BlockCraftingSlab extends BlockSlab {
 		useNeighborBrightness = true;
 		setCreativeTab(CreativeTabs.DECORATIONS);
 
-		setDefaultState(blockState.getBaseState().withProperty(DUMMY, PropertyDummy.Dummy.INSTANCE).withProperty(HALF, EnumBlockHalf.BOTTOM));
+		setDefaultState(blockState.getBaseState()
+				.withProperty(DUMMY, PropertyDummy.Dummy.INSTANCE)
+				.withProperty(HALF, EnumBlockHalf.BOTTOM));
 	}
 
 	@Override

@@ -7,9 +7,11 @@ import mcmultipart.api.slot.IPartSlot;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityCraftingSlab;
+import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
 
 import java.util.Optional;
 
@@ -36,6 +38,26 @@ public class Utils {
 		return MultipartHelper.getPartTile(world, pos, slot)
 				.map(IMultipartTile::getTileEntity)
 				.map(TileEntityCraftingSlab.class::cast);
+	}
+
+	public static Optional<TileEntityFurnaceSlab> getTileFurnaceSlab(IBlockAccess world, BlockPos pos, BlockSlab.EnumBlockHalf half) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileEntityFurnaceSlab) {
+			return Optional.of((TileEntityFurnaceSlab)te);
+		} else {
+			if (Loader.isModLoaded("mcmultipart")) {
+				return getPartTileFurnaceSlab(world, pos, half);
+			}
+		}
+		return Optional.empty();
+	}
+
+	@net.minecraftforge.fml.common.Optional.Method(modid = "mcmultipart")
+	private static Optional<TileEntityFurnaceSlab> getPartTileFurnaceSlab(IBlockAccess world, BlockPos pos, BlockSlab.EnumBlockHalf half) {
+		IPartSlot slot = half == BlockSlab.EnumBlockHalf.TOP ? EnumFaceSlot.UP : EnumFaceSlot.DOWN;
+		return MultipartHelper.getPartTile(world, pos, slot)
+				.map(IMultipartTile::getTileEntity)
+				.map(TileEntityFurnaceSlab.class::cast);
 	}
 
 }

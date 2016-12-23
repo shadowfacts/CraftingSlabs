@@ -19,6 +19,10 @@ public class InventoryCrafting extends net.minecraft.inventory.InventoryCrafting
 		return ObfuscationReflectionHelper.getPrivateValue(net.minecraft.inventory.InventoryCrafting.class, this, "stackList", "field_70466_a");
 	}
 
+	private void setStackList(NonNullList<ItemStack> value) {
+		ObfuscationReflectionHelper.setPrivateValue(net.minecraft.inventory.InventoryCrafting.class, this, value, "stackList", "field_70466_a");
+	}
+
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
 		ItemStack itemstack = ItemStackHelper.getAndSplit(getStackList(), index, count);
@@ -35,6 +39,7 @@ public class InventoryCrafting extends net.minecraft.inventory.InventoryCrafting
 	}
 
 	public void readFromNBT(NBTTagCompound tag) {
+		setStackList(NonNullList.withSize(getSizeInventory(), ItemStack.EMPTY));
 		ItemStackHelper.loadAllItems(tag, getStackList());
 	}
 

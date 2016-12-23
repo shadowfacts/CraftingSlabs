@@ -2,16 +2,15 @@ package net.shadowfacts.craftingslabs.multipart;
 
 import mcmultipart.api.multipart.IMultipartTile;
 import net.minecraft.tileentity.TileEntity;
-import net.shadowfacts.craftingslabs.tileentity.TileEntityCraftingSlab;
 
 /**
  * @author shadowfacts
  */
-public class PartTileCraftingSlab implements IMultipartTile {
+public class PartTile implements IMultipartTile {
 
-	private TileEntityCraftingSlab tile;
+	private TileEntity tile;
 
-	public PartTileCraftingSlab(TileEntityCraftingSlab tile) {
+	public PartTile(TileEntity tile) {
 		this.tile = tile;
 	}
 

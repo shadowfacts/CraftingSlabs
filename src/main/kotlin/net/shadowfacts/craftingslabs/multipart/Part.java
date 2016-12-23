@@ -10,20 +10,25 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.shadowfacts.craftingslabs.CraftingSlabs;
-import net.shadowfacts.craftingslabs.tileentity.TileEntityCraftingSlab;
 
 /**
  * @author shadowfacts
  */
-public class PartCraftingSlab implements IMultipart {
+public class Part implements IMultipart {
+
+	private BlockSlab block;
+
+	public Part(BlockSlab block) {
+		this.block = block;
+	}
 
 	@Override
 	public Block getBlock() {
-		return CraftingSlabs.craftingSlab;
+		return block;
 	}
 
 	@Override
@@ -38,7 +43,11 @@ public class PartCraftingSlab implements IMultipart {
 
 	@Override
 	public IMultipartTile convertToMultipartTile(TileEntity tile) {
-		return new PartTileCraftingSlab((TileEntityCraftingSlab)tile);
+		if (tile instanceof ITickable) {
+			return new PartTileTickable(tile, (ITickable)tile);
+		} else {
+			return new PartTile(tile);
+		}
 	}
 
 }

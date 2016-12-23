@@ -4,10 +4,15 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
+import net.shadowfacts.craftingslabs.block.BlockFurnaceSlab;
 import net.shadowfacts.craftingslabs.gui.GUIHandler;
+import net.shadowfacts.craftingslabs.network.PacketUpdateFurnaceSlab;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityCraftingSlab;
+import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
 
 /**
  * @author shadowfacts
@@ -22,8 +27,11 @@ public class CraftingSlabs {
 	@Mod.Instance
 	public static CraftingSlabs instance;
 
+	public static SimpleNetworkWrapper network;
+
 //	Content
 	public static BlockCraftingSlab craftingSlab = new BlockCraftingSlab();
+	public static BlockFurnaceSlab furnaceSlab = new BlockFurnaceSlab();
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -31,8 +39,13 @@ public class CraftingSlabs {
 		GameRegistry.registerTileEntity(TileEntityCraftingSlab.class, MOD_ID + ":crafting_slab");
 		GameRegistry.register(new ItemBlock(craftingSlab).setRegistryName(craftingSlab.getRegistryName()));
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
+		GameRegistry.register(furnaceSlab);
+		GameRegistry.registerTileEntity(TileEntityFurnaceSlab.class, MOD_ID + ":furnace_slab");
+		GameRegistry.register(new ItemBlock(furnaceSlab).setRegistryName(furnaceSlab.getRegistryName()));
 
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
+		network = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID);
+		network.registerMessage(PacketUpdateFurnaceSlab.class, PacketUpdateFurnaceSlab.class, 0, Side.CLIENT);
 	}
 
 }

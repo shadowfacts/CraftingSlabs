@@ -22,9 +22,13 @@ public class CompatMCMP implements IMCMPAddon {
 
 	@Override
 	public void preInit(IMultipartRegistry registry) {
-		registry.registerPartWrapper(CraftingSlabs.craftingSlab, new PartCraftingSlab());
-		IWrappedBlock wrapped = registry.registerStackWrapper(Item.getItemFromBlock(CraftingSlabs.craftingSlab), stack -> true, CraftingSlabs.craftingSlab);
-		wrapped.setPlacementInfo(this::getSlabState);
+		registry.registerPartWrapper(CraftingSlabs.craftingSlab, new Part(CraftingSlabs.craftingSlab));
+		IWrappedBlock craftingSlab = registry.registerStackWrapper(Item.getItemFromBlock(CraftingSlabs.craftingSlab), stack -> true, CraftingSlabs.craftingSlab);
+		craftingSlab.setPlacementInfo(this::getSlabState);
+
+		registry.registerPartWrapper(CraftingSlabs.furnaceSlab, new Part(CraftingSlabs.furnaceSlab));
+		IWrappedBlock furnaceSlab = registry.registerStackWrapper(Item.getItemFromBlock(CraftingSlabs.furnaceSlab), stack -> true, CraftingSlabs.furnaceSlab);
+		furnaceSlab.setPlacementInfo(this::getSlabState);
 	}
 
 	private IBlockState getSlabState(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand, IBlockState state) {
