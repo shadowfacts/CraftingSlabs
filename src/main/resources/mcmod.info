@@ -1,0 +1,14 @@
+[
+	{
+	  "modid": "craftingslabs",
+	  "name": "CraftingSlabs",
+	  "version": "$version",
+	  "mcversion": "$mcversion",
+	  "description": "A simple mod to add slab versions of the crafting table",
+	  "credits": "",
+	  "url": "https://github.com/shadowfacts/CraftingSlabs",
+	  "updateUrl": "",
+	  "authorList": [ "shadowfacts" ],
+	  "screenshots": []
+	}
+]
