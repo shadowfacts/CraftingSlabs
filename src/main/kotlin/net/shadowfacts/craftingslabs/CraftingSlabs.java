@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.shadowfacts.craftingslabs.block.BlockCraftingSlab;
 import net.shadowfacts.craftingslabs.block.BlockFurnaceSlab;
 import net.shadowfacts.craftingslabs.gui.GUIHandler;
+import net.shadowfacts.craftingslabs.network.PacketRequestUpdateFurnaceSlab;
 import net.shadowfacts.craftingslabs.network.PacketUpdateFurnaceSlab;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityCraftingSlab;
 import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
@@ -51,6 +52,7 @@ public class CraftingSlabs {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GUIHandler());
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID);
 		network.registerMessage(PacketUpdateFurnaceSlab.class, PacketUpdateFurnaceSlab.class, 0, Side.CLIENT);
+		network.registerMessage(PacketRequestUpdateFurnaceSlab.class, PacketRequestUpdateFurnaceSlab.class, 1, Side.SERVER);
 	}
 
 	@Mod.EventHandler

@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.shadowfacts.craftingslabs.CraftingSlabs;
+import net.shadowfacts.craftingslabs.network.PacketRequestUpdateFurnaceSlab;
 import net.shadowfacts.craftingslabs.network.PacketUpdateFurnaceSlab;
 import net.shadowfacts.shadowmc.capability.CapHolder;
 import net.shadowfacts.shadowmc.tileentity.BaseTileEntity;
@@ -47,6 +48,14 @@ public class TileEntityFurnaceSlab extends BaseTileEntity implements ITickable, 
 	private int currentItemBurnTime;
 	private int cookTime;
 	private int totalCookTime;
+
+	@Override
+	public void onLoad() {
+		if (world.isRemote) {
+			PacketRequestUpdateFurnaceSlab msg = new PacketRequestUpdateFurnaceSlab(this);
+			CraftingSlabs.network.sendToServer(msg);
+		}
+	}
 
 	@Override
 	public int getSizeInventory() {
