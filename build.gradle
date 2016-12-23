@@ -8,7 +8,6 @@ buildscript {
 	}
 	dependencies {
 		classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
 	}
 }
 
@@ -56,7 +55,6 @@ repositories {
 
 dependencies {
 	deobfCompile group: "net.shadowfacts", name: "ShadowMC", version: mc_version + "-" + shadowmc_version
-	compile group: "net.shadowfacts", name: "Forgelin", version: forgelin_version
 	// deobfCompile group: "mezz.jei", name: "jei_" + mc_version, version: jei_version
 	compile project(":MCMultiPart")
 }
