@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.ShapedOreRecipe
+import net.shadowfacts.craftingslabs.compat.CompatCraftingTweaks
 import net.shadowfacts.craftingslabs.gui.GUIHandler
 import net.shadowfacts.craftingslabs.item.ModItems
 import net.shadowfacts.craftingslabs.multipart.PartCraftingSlab
@@ -37,6 +38,7 @@ object CraftingSlabs {
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(CraftingSlabs, GUIHandler)
 
+		compat.registerModule(CompatCraftingTweaks::class.java)
 		compat.preInit(event)
 	}
 
