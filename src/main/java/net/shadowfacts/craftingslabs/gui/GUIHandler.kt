@@ -7,22 +7,26 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.IGuiHandler
 import net.shadowfacts.craftingslabs.container.ContainerCrafting
 import net.shadowfacts.craftingslabs.container.ContainerFurnace
+import net.shadowfacts.craftingslabs.multipart.PartCraftingSlab
 import net.shadowfacts.craftingslabs.multipart.PartFurnaceSlab
 
 /**
  * @author shadowfacts
  */
-object GUIHandler : IGuiHandler {
+object GUIHandler: IGuiHandler {
+
+	val CRAFTING_BOTTOM = 0
+	val CRAFTING_TOP = 1
+	val FURNACE_BOTTOM = 2
+	val FURNACE_TOP = 3
 
 	override fun getClientGuiElement(id: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
 		val pos = BlockPos(x, y, z)
 		return when (id) {
-			// crafting
-			0 -> GUICrafting(player.inventory, world, pos)
-			// furnace bottom
-			1 -> GUIFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN)!!, world, pos)
-			// furnace top
-			2 -> GUIFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP)!!, world, pos)
+			CRAFTING_BOTTOM -> GUICrafting(player.inventory, PartCraftingSlab.getCraftingSlab(world, pos, PartSlot.DOWN)!!, world, pos)
+			CRAFTING_TOP -> GUICrafting(player.inventory, PartCraftingSlab.getCraftingSlab(world, pos, PartSlot.UP)!!, world, pos)
+			FURNACE_BOTTOM -> GUIFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN)!!, world, pos)
+			FURNACE_TOP -> GUIFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP)!!, world, pos)
 			else -> null
 		}
 	}
@@ -30,12 +34,10 @@ object GUIHandler : IGuiHandler {
 	override fun getServerGuiElement(id: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
 		val pos = BlockPos(x, y, z)
 		return when (id) {
-			// crafting
-			0 -> ContainerCrafting(player.inventory, world, pos)
-			// furnace bottom
-			1 -> ContainerFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN)!!, world, pos)
-			// furnace top
-			2 -> ContainerFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP)!!, world, pos)
+			CRAFTING_BOTTOM -> ContainerCrafting(player.inventory, PartCraftingSlab.getCraftingSlab(world, pos, PartSlot.DOWN)!!, world, pos)
+			CRAFTING_TOP -> ContainerCrafting(player.inventory, PartCraftingSlab.getCraftingSlab(world, pos, PartSlot.UP)!!, world, pos)
+			FURNACE_BOTTOM -> ContainerFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.DOWN)!!, world, pos)
+			FURNACE_TOP -> ContainerFurnace(player.inventory, PartFurnaceSlab.getFurnaceSlab(world, pos, PartSlot.UP)!!, world, pos)
 			else -> null
 		}
 	}

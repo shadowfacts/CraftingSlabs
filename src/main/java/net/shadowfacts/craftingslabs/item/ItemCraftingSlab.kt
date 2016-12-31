@@ -20,7 +20,7 @@ import net.shadowfacts.shadowmc.item.ItemModelProvider
 /**
  * @author shadowfacts
  */
-class ItemCraftingSlab : ItemMultiPart(), ItemModelProvider {
+class ItemCraftingSlab: ItemMultiPart(), ItemModelProvider {
 
 	init {
 		setRegistryName("craftingSlab")
@@ -33,7 +33,7 @@ class ItemCraftingSlab : ItemMultiPart(), ItemModelProvider {
 	}
 
 	override fun createPart(world: World, pos: BlockPos, side: EnumFacing, hit: Vec3d, stack: ItemStack, player: EntityPlayer): IMultipart {
-		val half: BlockSlab.EnumBlockHalf = when (side) {
+		val half = when (side) {
 			EnumFacing.DOWN -> BlockSlab.EnumBlockHalf.BOTTOM
 			EnumFacing.UP -> BlockSlab.EnumBlockHalf.TOP
 			else -> if (hit.yCoord > 0.5) BlockSlab.EnumBlockHalf.TOP else BlockSlab.EnumBlockHalf.BOTTOM

@@ -14,7 +14,7 @@ import net.shadowfacts.craftingslabs.multipart.PartFurnaceSlab
 /**
  * @author shadowfacts
  */
-class GUIFurnace(val playerInv: InventoryPlayer, val furnace: IInventory, world: World, pos: BlockPos) : GuiContainer(ContainerFurnace(playerInv, furnace, world, pos)) {
+class GUIFurnace(val playerInv: InventoryPlayer, val furnace: IInventory, world: World, pos: BlockPos): GuiContainer(ContainerFurnace(playerInv, furnace, world, pos)) {
 
 	companion object {
 		private val TEXTURE = ResourceLocation("textures/gui/container/furnace.png")

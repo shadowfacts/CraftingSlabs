@@ -8,22 +8,35 @@ import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.shadowfacts.craftingslabs.multipart.PartCraftingSlab
+import net.shadowfacts.craftingslabs.util.InventoryCrafting
 import net.shadowfacts.shadowmc.inventory.ContainerBase
 
 /**
  * @author shadowfacts
  */
-class ContainerCrafting(val world: World, pos: BlockPos) : ContainerBase(pos) {
+class ContainerCrafting(val world: World, pos: BlockPos): ContainerBase(pos) {
 
-	val matrix = InventoryCrafting(this, 3, 3)
 	val result = InventoryCraftResult()
+	lateinit var matrix: InventoryCrafting
+		private set
 
-	constructor(playerInv: InventoryPlayer, world: World, pos: BlockPos) : this(world, pos) {
-		addSlotToContainer(SlotCrafting(playerInv.player, matrix, result, 0, 124, 35))
+	constructor(playerInv: InventoryPlayer, craftingSlab: PartCraftingSlab, world: World, pos: BlockPos): this(world, pos) {
+		matrix = craftingSlab.inventory
+
+		addSlotToContainer(object: SlotCrafting(playerInv.player, matrix, result, 0, 124, 35) {
+			override fun onSlotChanged() {
+				updateCraftingResult()
+			}
+		})
 
 		for (i in 0.until(3)) {
 			for (j in 0.until(3)) {
-				addSlotToContainer(Slot(matrix, j + i * 3, 30 + j * 18, 17 + i * 18))
+				addSlotToContainer(object: Slot(matrix, j + i * 3, 30 + j * 18, 17 + i * 18) {
+					override fun onSlotChanged() {
+						updateCraftingResult()
+						craftingSlab.markDirty()
+					}
+				})
 			}
 		}
 
@@ -37,24 +50,11 @@ class ContainerCrafting(val world: World, pos: BlockPos) : ContainerBase(pos) {
 			addSlotToContainer(Slot(playerInv, i, 8 + i * 18, 142))
 		}
 
-		onCraftMatrixChanged(matrix)
+		updateCraftingResult()
 	}
 
-	override fun onCraftMatrixChanged(inventory: IInventory) {
+	private fun updateCraftingResult() {
 		result.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(matrix, world))
-	}
-
-	override fun onContainerClosed(player: EntityPlayer) {
-		super.onContainerClosed(player)
-
-		if (!world.isRemote) {
-			for (i in 0.until(9)) {
-				val stack = matrix.removeStackFromSlot(i)
-				if (stack != null) {
-					player.dropItem(stack, false)
-				}
-			}
-		}
 	}
 
 	override fun canInteractWith(player: EntityPlayer?): Boolean {

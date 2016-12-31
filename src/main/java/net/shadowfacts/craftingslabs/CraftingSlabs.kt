@@ -30,7 +30,6 @@ object CraftingSlabs {
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(CraftingSlabs, GUIHandler)
 
-//		compat.registerModule(CompatCraftingSlabs::class.java)
 		compat.preInit(event)
 	}
 

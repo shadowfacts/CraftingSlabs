@@ -8,11 +8,12 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.shadowfacts.craftingslabs.container.ContainerCrafting
+import net.shadowfacts.craftingslabs.multipart.PartCraftingSlab
 
 /**
  * @author shadowfacts
  */
-class GUICrafting(playerInv: InventoryPlayer, world: World, pos: BlockPos) : GuiContainer(ContainerCrafting(playerInv, world, pos)) {
+class GUICrafting(playerInv: InventoryPlayer, craftingSlab: PartCraftingSlab, world: World, pos: BlockPos): GuiContainer(ContainerCrafting(playerInv, craftingSlab, world, pos)) {
 
 	companion object {
 		private val TEXTURE = ResourceLocation("textures/gui/container/crafting_table.png")

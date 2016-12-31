@@ -16,19 +16,26 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.PacketBuffer
+import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.items.CapabilityItemHandler
+import net.minecraftforge.items.wrapper.InvWrapper
 import net.shadowfacts.craftingslabs.CraftingSlabs
 import net.shadowfacts.craftingslabs.MODID
+import net.shadowfacts.craftingslabs.gui.GUIHandler
+import net.shadowfacts.craftingslabs.util.InventoryCrafting
 import java.util.*
 
 /**
  * @author shadowfacts
  */
-class PartCraftingSlab(var half: BlockSlab.EnumBlockHalf) : Multipart(), ISlottedPart {
+class PartCraftingSlab(var half: BlockSlab.EnumBlockHalf): Multipart(), ISlottedPart {
 
 	companion object {
 		val HALF: PropertyEnum<BlockSlab.EnumBlockHalf> = PropertyEnum.create("half", BlockSlab.EnumBlockHalf::class.java)
@@ -57,12 +64,15 @@ class PartCraftingSlab(var half: BlockSlab.EnumBlockHalf) : Multipart(), ISlotte
 		}
 	}
 
-	constructor() : this(BlockSlab.EnumBlockHalf.BOTTOM)
+	val inventory = InventoryCrafting(3, 3)
+	val wrapper = InvWrapper(inventory)
+
+	constructor(): this(BlockSlab.EnumBlockHalf.BOTTOM)
 
 	private fun getBoundingBox(): AxisAlignedBB {
-		when (half) {
-			BlockSlab.EnumBlockHalf.BOTTOM -> return AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5, 1.0)
-			BlockSlab.EnumBlockHalf.TOP -> return AxisAlignedBB(0.0, 0.5, 0.0, 1.0, 1.0, 1.0)
+		return when (half) {
+			BlockSlab.EnumBlockHalf.BOTTOM -> AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.5, 1.0)
+			BlockSlab.EnumBlockHalf.TOP -> AxisAlignedBB(0.0, 0.5, 0.0, 1.0, 1.0, 1.0)
 		}
 	}
 
@@ -90,17 +100,23 @@ class PartCraftingSlab(var half: BlockSlab.EnumBlockHalf) : Multipart(), ISlotte
 	}
 
 	override fun onActivated(player: EntityPlayer, hand: EnumHand, heldItem: ItemStack?, hit: PartMOP): Boolean {
-		player.openGui(CraftingSlabs, 0, player.worldObj, hit.blockPos.x, hit.blockPos.y, hit.blockPos.z)
+		val id = when (half) {
+			BlockSlab.EnumBlockHalf.BOTTOM -> GUIHandler.CRAFTING_BOTTOM
+			BlockSlab.EnumBlockHalf.TOP -> GUIHandler.CRAFTING_TOP
+		}
+		player.openGui(CraftingSlabs, id, player.world, hit.blockPos.x, hit.blockPos.y, hit.blockPos.z)
 		return true
 	}
 
 	override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
 		tag.setBoolean("half", half == BlockSlab.EnumBlockHalf.BOTTOM)
+		inventory.writeToNBT(tag)
 		return tag
 	}
 
 	override fun readFromNBT(tag: NBTTagCompound) {
 		half = if (tag.getBoolean("half")) BlockSlab.EnumBlockHalf.BOTTOM else BlockSlab.EnumBlockHalf.TOP
+		inventory.readFromNBT(tag)
 	}
 
 	override fun writeUpdatePacket(buf: PacketBuffer) {
@@ -115,7 +131,7 @@ class PartCraftingSlab(var half: BlockSlab.EnumBlockHalf) : Multipart(), ISlotte
 		return BlockStateContainer(MCMultiPartMod.multipart, HALF)
 	}
 
-	override fun getExtendedState(state: IBlockState): IBlockState {
+	override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
 		return state.withProperty(HALF, half)
 	}
 
@@ -124,9 +140,9 @@ class PartCraftingSlab(var half: BlockSlab.EnumBlockHalf) : Multipart(), ISlotte
 	}
 
 	override fun getSlotMask(): EnumSet<PartSlot> {
-		when (half) {
-			BlockSlab.EnumBlockHalf.BOTTOM -> return EnumSet.of(PartSlot.DOWN)
-			BlockSlab.EnumBlockHalf.TOP -> return EnumSet.of(PartSlot.UP)
+		return when (half) {
+			BlockSlab.EnumBlockHalf.BOTTOM -> EnumSet.of(PartSlot.DOWN)
+			BlockSlab.EnumBlockHalf.TOP -> EnumSet.of(PartSlot.UP)
 		}
 	}
 
@@ -134,8 +150,21 @@ class PartCraftingSlab(var half: BlockSlab.EnumBlockHalf) : Multipart(), ISlotte
 		return 0.3f
 	}
 
+	@Deprecated("")
 	override fun isToolEffective(type: String, level: Int): Boolean {
 		return type == "axe"
+	}
+
+	override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+	}
+
+	override fun <T: Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
+		return if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) wrapper as T else null
+	}
+
+	public override fun markDirty() {
+		super.markDirty()
 	}
 
 }

@@ -32,17 +32,19 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.TextComponentTranslation
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.shadowfacts.craftingslabs.CraftingSlabs
 import net.shadowfacts.craftingslabs.MODID
+import net.shadowfacts.craftingslabs.gui.GUIHandler
 import java.util.*
 
 /**
  * @author shadowfacts
  */
-class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing) : Multipart(), ISlottedPart, ITickable, IInventory {
+class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing): Multipart(), ISlottedPart, ITickable, IInventory {
 
 	companion object {
 		val HALF: PropertyEnum<BlockSlab.EnumBlockHalf> = PropertyEnum.create("half", BlockSlab.EnumBlockHalf::class.java)
@@ -84,7 +86,7 @@ class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing)
 
 	var burning = false
 
-	constructor() : this(BlockSlab.EnumBlockHalf.BOTTOM, EnumFacing.NORTH)
+	constructor(): this(BlockSlab.EnumBlockHalf.BOTTOM, EnumFacing.NORTH)
 
 	private fun getBoundingBox(): AxisAlignedBB {
 		return when (half) {
@@ -120,7 +122,11 @@ class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing)
 	}
 
 	override fun onActivated(player: EntityPlayer, hand: EnumHand, heldItem: ItemStack?, hit: PartMOP): Boolean {
-		player.openGui(CraftingSlabs, if (half == BlockSlab.EnumBlockHalf.BOTTOM) 1 else 2, player.worldObj, hit.blockPos.x, hit.blockPos.y, hit.blockPos.z)
+		val id = when (half) {
+			BlockSlab.EnumBlockHalf.BOTTOM -> GUIHandler.FURNACE_BOTTOM
+			BlockSlab.EnumBlockHalf.TOP -> GUIHandler.FURNACE_TOP
+		}
+		player.openGui(CraftingSlabs, id, player.world, hit.blockPos.x, hit.blockPos.y, hit.blockPos.z)
 		return true
 	}
 
@@ -171,12 +177,12 @@ class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing)
 
 	override fun writeUpdatePacket(buf: PacketBuffer) {
 		val tag = writeToNBT(NBTTagCompound())
-		buf.writeNBTTagCompoundToBuffer(tag)
+		buf.writeCompoundTag(tag)
 		buf.writeBoolean(burning)
 	}
 
 	override fun readUpdatePacket(buf: PacketBuffer) {
-		readFromNBT(buf.readNBTTagCompoundFromBuffer()!!)
+		readFromNBT(buf.readCompoundTag()!!)
 		burning = buf.readBoolean()
 	}
 
@@ -184,7 +190,7 @@ class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing)
 		return BlockStateContainer(MCMultiPartMod.multipart, HALF, FACING, BURNING)
 	}
 
-	override fun getExtendedState(state: IBlockState): IBlockState {
+	override fun getActualState(state: IBlockState, world: IBlockAccess, pos: BlockPos): IBlockState {
 		return state
 				.withProperty(HALF, half)
 				.withProperty(FACING, facing)
@@ -285,7 +291,7 @@ class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing)
 					cookTime = 0
 				}
 			} else if (!isBurning() && cookTime > 0) {
-				cookTime = MathHelper.clamp_int(cookTime - 2, 0, totalCookTime)
+				cookTime = MathHelper.clamp(cookTime - 2, 0, totalCookTime)
 			}
 
 			if (prevBurning != isBurning()) {
@@ -415,7 +421,7 @@ class PartFurnaceSlab(var half: BlockSlab.EnumBlockHalf, var facing: EnumFacing)
 		}
 	}
 
-	override fun isUseableByPlayer(player: EntityPlayer): Boolean {
+	override fun isUsableByPlayer(player: EntityPlayer): Boolean {
 		return player.getDistanceSq(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5) <= 64
 	}
 

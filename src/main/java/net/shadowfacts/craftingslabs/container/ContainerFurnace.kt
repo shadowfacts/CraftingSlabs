@@ -16,14 +16,14 @@ import net.shadowfacts.shadowmc.inventory.ContainerBase
 /**
  * @author shadowfacts
  */
-class ContainerFurnace(val furnace: IInventory, val world: World, pos: BlockPos) : ContainerBase(pos) {
+class ContainerFurnace(val furnace: IInventory, val world: World, pos: BlockPos): ContainerBase(pos) {
 
 	private var cookTime = 0
 	private var totalCookTime = 0
 	private var furnaceBurnTime = 0
 	private var currentItemBurnTime = 0
 
-	constructor(playerInv: InventoryPlayer, furnace: IInventory, world: World, pos: BlockPos) : this(furnace, world, pos) {
+	constructor(playerInv: InventoryPlayer, furnace: IInventory, world: World, pos: BlockPos): this(furnace, world, pos) {
 		addSlotToContainer(Slot(furnace, 0, 56, 17))
 		addSlotToContainer(SlotFurnaceFuel(furnace, 1, 56, 53))
 		addSlotToContainer(SlotFurnaceOutput(playerInv.player, furnace, 2, 116, 35))

@@ -21,7 +21,7 @@ import net.shadowfacts.shadowmc.item.ItemModelProvider
 /**
  * @author shadowfacts
  */
-class ItemFurnaceSlab : ItemMultiPart(), ItemModelProvider {
+class ItemFurnaceSlab: ItemMultiPart(), ItemModelProvider {
 
 	init {
 		setRegistryName("furnaceSlab")
