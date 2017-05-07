@@ -28,7 +28,7 @@ public class GUICrafting extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		fontRendererObj.drawString(I18n.format("container.crafting"), 26, 6, 0x404040);
-		fontRendererObj.drawString(I18n.format("container.crafting"), 8, ySize - 94, 0x404040);
+		fontRenderer.drawString(I18n.format("container.crafting"), 26, 6, 0x404040);
+		fontRenderer.drawString(I18n.format("container.crafting"), 8, ySize - 94, 0x404040);
 	}
 }

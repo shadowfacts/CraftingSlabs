@@ -21,7 +21,7 @@ import net.shadowfacts.craftingslabs.CraftingSlabs;
 public class CompatMCMP implements IMCMPAddon {
 
 	@Override
-	public void preInit(IMultipartRegistry registry) {
+	public void registerParts(IMultipartRegistry registry) {
 		registry.registerPartWrapper(CraftingSlabs.craftingSlab, new Part(CraftingSlabs.craftingSlab));
 		IWrappedBlock craftingSlab = registry.registerStackWrapper(Item.getItemFromBlock(CraftingSlabs.craftingSlab), stack -> true, CraftingSlabs.craftingSlab);
 		craftingSlab.setPlacementInfo(this::getSlabState);

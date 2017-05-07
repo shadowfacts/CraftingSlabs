@@ -23,7 +23,7 @@ import net.shadowfacts.craftingslabs.tileentity.TileEntityFurnaceSlab;
 /**
  * @author shadowfacts
  */
-@Mod(modid = CraftingSlabs.MOD_ID, name = CraftingSlabs.NAME, version = CraftingSlabs.VERSION, dependencies = "required-before:mcmultipart;required-after:shadowmc;")
+@Mod(modid = CraftingSlabs.MOD_ID, name = CraftingSlabs.NAME, version = CraftingSlabs.VERSION, dependencies = "required-before:mcmultipart;required-after:shadowmc;", updateJSON = "https://update.shadowfacts.net/crafting-slabs")
 public class CraftingSlabs {
 
 	public static final String MOD_ID = "craftingslabs";

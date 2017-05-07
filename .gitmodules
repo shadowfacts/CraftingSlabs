@@ -1,4 +1,0 @@
-[submodule "MCMultiPart"]
-	path = MCMultiPart
-	url = git@github.com:amadornes/MCMultiPart.git
-	branch = 1.11

@@ -6,6 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.shadowfacts.craftingslabs.block.BlockFurnaceSlab;
 import net.shadowfacts.craftingslabs.util.Utils;
 import net.shadowfacts.shadowmc.ShadowMC;
 import net.shadowfacts.shadowmc.network.PacketBase;
@@ -28,7 +29,7 @@ public class PacketUpdateFurnaceSlab extends PacketBase<PacketUpdateFurnaceSlab,
 
 	public PacketUpdateFurnaceSlab(TileEntity tile) {
 		this.pos = tile.getPos();
-		this.half = tile.getWorld().getBlockState(tile.getPos()).getValue(BlockSlab.HALF);
+		this.half = Utils.getStateFurnaceSlab(tile.getWorld(), tile.getPos()).get().getValue(BlockFurnaceSlab.HALF);
 
 		this.tag = tile.writeToNBT(new NBTTagCompound());
 	}

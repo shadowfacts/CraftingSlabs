@@ -68,8 +68,10 @@ public class BlockFurnaceSlab extends BlockSlab {
 
 	@Override
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		TileEntityFurnaceSlab tile = (TileEntityFurnaceSlab)world.getTileEntity(pos);
-		InventoryHelper.dropInventoryItems(world, pos, tile);
+		if (!world.isRemote) {
+			TileEntityFurnaceSlab tile = (TileEntityFurnaceSlab)world.getTileEntity(pos);
+			InventoryHelper.dropInventoryItems(world, pos, tile);
+		}
 		super.onBlockHarvested(world, pos, state, player);
 	}
 

@@ -12,7 +12,6 @@ buildscript {
 }
 
 apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "kotlin"
 
 version = mc_version + "-" + mod_version
 
@@ -51,10 +50,14 @@ repositories {
 		name "progwml6"
 		url "http://dvs1.progwml6.com/files/maven/"
 	}
+	maven {
+		name "amadornes"
+		url "https://maven.amadornes.com"
+	}
 }
 
 dependencies {
 	deobfCompile group: "net.shadowfacts", name: "ShadowMC", version: mc_version + "-" + shadowmc_version
-	// deobfCompile group: "mezz.jei", name: "jei_" + mc_version, version: jei_version
-	compile project(":MCMultiPart")
+	deobfCompile group: "mezz.jei", name: "jei_" + mc_version, version: jei_version
+	deobfCompile group: "MCMultiPart2", name: "MCMultiPart", version: mcmp_version
 }

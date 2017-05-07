@@ -49,8 +49,10 @@ public class BlockCraftingSlab extends BlockSlab {
 
 	@Override
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		TileEntityCraftingSlab tile = (TileEntityCraftingSlab)world.getTileEntity(pos);
-		InventoryHelper.dropInventoryItems(world, pos, tile.inventory);
+		if (!world.isRemote) {
+			TileEntityCraftingSlab tile = (TileEntityCraftingSlab)world.getTileEntity(pos);
+			InventoryHelper.dropInventoryItems(world, pos, tile.inventory);
+		}
 		super.onBlockHarvested(world, pos, state, player);
 	}
 
